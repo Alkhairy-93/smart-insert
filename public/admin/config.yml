@@ -1,0 +1,38 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "static/img"
+public_folder: "/img"
+
+collections:
+  - name: "content"
+    label: "Contenu du site"
+    files:
+      - label: "Offres d'emploi"
+        name: "jobs"
+        file: "data/content.json"
+        fields:
+          - label: "Offres d'emploi"
+            name: "content"
+            widget: "list"
+            fields:
+              - { label: "ID", name: "id", widget: "string", required: false, hint: "Laisser vide pour génération automatique" }
+              - { label: "Titre du poste", name: "title", widget: "string" }
+              - { label: "Entreprise", name: "company", widget: "string" }
+              - { label: "Lieu", name: "location", widget: "string" }
+              - { label: "Type de contrat", name: "type", widget: "string", hint: "Ex: CDI, CDD, Stage, Consultant, Freelance, etc." }
+              - { label: "Secteur d'activité", name: "sector", widget: "string", hint: "Ex: Humanitaire, Agriculture, Éducation, Santé, etc." }
+              - { label: "Date de publication", name: "date", widget: "datetime" }
+              - { label: "Date d'expiration", name: "expirationDate", widget: "datetime" }
+              - { label: "Description du poste", name: "description", widget: "text" }
+              - { label: "Exigences et compétences", name: "requirements", widget: "text" }
+              - { label: "Expérience requise", name: "experience", widget: "string", hint: "Ex: 3 ans minimum, Débutant accepté, etc." }
+              - { label: "Niveau d'éducation", name: "education", widget: "string", hint: "Ex: BAC, BTS, LICENCE, MASTER, DOCTORAT, etc." }
+              - { label: "Compétences spécifiques", name: "skills", widget: "list", default: [], hint: "Ajouter une compétence puis cliquer + pour en ajouter une autre" }
+              - { label: "Salaire", name: "salary", widget: "string", required: false, hint: "Ex: Selon expérience, 300.000 FCFA, Négociable, etc." }
+              - { label: "Auteur", name: "author", widget: "string", default: "Admin" }
+              - { label: "Email de contact", name: "contactEmail", widget: "string", required: false, hint: "Email spécifique pour cette offre (optionnel)" }
+              - { label: "Téléphone de contact", name: "contactPhone", widget: "string", required: false, hint: "Téléphone spécifique pour cette offre (optionnel)" }
+              - { label: "Lien de postulation", name: "applicationUrl", widget: "string", required: false, hint: "URL directe pour postuler (optionnel)" }
+              - { label: "Tags supplémentaires", name: "tags", widget: "list", required: false, default: [], hint: "Tags pour améliorer la recherche" }
