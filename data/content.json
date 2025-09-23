@@ -1,21 +1,22 @@
 {
   "content": [
     {
-      "skills": [],
-      "sector": "HUMANITAIRE",
-      "education": "cfepd",
-      "experience": "1 ans",
+      "skills": [
+        "hygienne"
+      ],
+      "sector": "Menage",
+      "education": "CFEPD",
+      "experience": "2 ans",
       "author": "Admin",
-      "date": "2025-09-23T22:25:55.333Z",
-      "requirements": "HYGIENNE",
+      "date": "2025-09-23T23:05:54.480Z",
+      "requirements": "2 ans",
       "location": "Niamey",
       "title": "menage",
       "tags": [],
       "type": "CDD",
-      "id": "2",
-      "description": "MENAGE",
-      "company": "world vision",
-      "expirationDate": "2025-09-23T22:25:55.370Z"
+      "description": "Nous recherchons menege bonne",
+      "company": "particulier",
+      "expirationDate": "2025-09-25T23:05:54.512Z"
     }
   ]
 }
