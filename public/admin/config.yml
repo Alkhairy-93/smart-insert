@@ -11,7 +11,7 @@ collections:
     files:
       - label: "Offres d'emploi"
         name: "jobs"
-        file: "data/content.json"
+        file: "public/data/content.json"
         fields:
           - label: "Offres d'emploi"
             name: "content"
@@ -35,4 +35,5 @@ collections:
               - { label: "Email de contact", name: "contactEmail", widget: "string", required: false, hint: "Email spécifique pour cette offre (optionnel)" }
               - { label: "Téléphone de contact", name: "contactPhone", widget: "string", required: false, hint: "Téléphone spécifique pour cette offre (optionnel)" }
               - { label: "Lien de postulation", name: "applicationUrl", widget: "string", required: false, hint: "URL directe pour postuler (optionnel)" }
+
               - { label: "Tags supplémentaires", name: "tags", widget: "list", required: false, default: [], hint: "Tags pour améliorer la recherche" }
