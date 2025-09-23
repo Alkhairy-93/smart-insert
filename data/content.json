@@ -1,0 +1,23 @@
+{
+  "content": [
+    {
+      "skills": [
+        "nettoyage"
+      ],
+      "sector": "menage",
+      "education": "CFEPD",
+      "experience": "3",
+      "author": "Admin",
+      "date": "2025-09-23T22:18:38.969Z",
+      "requirements": "CFEPD",
+      "location": "Niamey",
+      "title": "menagere",
+      "tags": [],
+      "type": "CDD",
+      "id": "3",
+      "description": "un poste de menage",
+      "company": "particulier",
+      "expirationDate": "2025-09-23T22:18:39.009Z"
+    }
+  ]
+}
