@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Smart Insert</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5f5f5;
+    }
+    
+    .admin-header {
+      background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+    
+    .admin-header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+    
+    .admin-container {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    
+    .admin-welcome {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      margin-bottom: 2rem;
+    }
+    
+    .admin-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    
+    .stat-card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    
+    .stat-number {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #0ea5e9;
+      margin-bottom: 0.5rem;
+    }
+    
+    .admin-actions {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1rem;
+    }
+    
+    .action-card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: block;
+    }
+    
+    .action-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    .action-card h3 {
+      color: #0ea5e9;
+      margin-top: 0;
+    }
+    
+    .action-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    
+    .quick-guide {
+      background: #f0f9ff;
+      border-left: 4px solid #0ea5e9;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-top: 2rem;
+    }
+    
+    .quick-guide h3 {
+      color: #0369a1;
+      margin-top: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="admin-header">
+    <h1>💼 Admin Smart Insert</h1>
+    <p>Gestion complète des offres d'emploi</p>
+  </div>
+
+  <div class="admin-container">
+    <div class="admin-welcome">
+      <h2>Bienvenue dans l'administration</h2>
+      <p>Gérez librement toutes vos offres d'emploi. Tous les champs sont modifiables librement.</p>
+    </div>
+
+    <div class="admin-stats">
+      <div class="stat-card">
+        <div class="stat-number" id="jobs-count">0</div>
+        <div>Offres d'emploi actives</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="companies-count">0</div>
+        <div>Entreprises différentes</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="locations-count">0</div>
+        <div>Localisations</div>
+      </div>
+    </div>
+
+    <div class="admin-actions">
+      <a href="#/collections/content/entries/jobs" class="action-card">
+        <div class="action-icon">📋</div>
+        <h3>Gérer les offres d'emploi</h3>
+        <p>Ajouter, modifier ou supprimer des offres d'emploi. Tous les champs sont libres.</p>
+      </a>
+      
+      <a href="/" target="_blank" class="action-card">
+        <div class="action-icon">👁️</div>
+        <h3>Voir le site public</h3>
+        <p>Ouvrir le site dans un nouvel onglet pour voir les modifications</p>
+      </a>
+    </div>
+
+    <div class="quick-guide">
+      <h3>📝 Guide rapide</h3>
+      <p><strong>Champs libres :</strong> Tous les champs sont en texte libre. Vous pouvez saisir exactement ce que vous voulez.</p>
+      <p><strong>Compétences :</strong> Utilisez le champ liste pour ajouter plusieurs compétences.</p>
+      <p><strong>Dates :</strong> Utilisez le sélecteur de date pour choisir les dates de publication et d'expiration.</p>
+      <p><strong>ID :</strong> Laisser vide pour génération automatique, ou saisir un identifiant unique.</p>
+    </div>
+  </div>
+
+  <script>
+    // Charger et analyser les données pour les statistiques
+    fetch('/data/content.json')
+      .then(response => response.json())
+      .then(data => {
+        const jobs = data.content || [];
+        
+        // Statistique des offres
+        document.getElementById('jobs-count').textContent = jobs.length;
+        
+        // Statistique des entreprises uniques
+        const companies = [...new Set(jobs.map(job => job.company))];
+        document.getElementById('companies-count').textContent = companies.length;
+        
+        // Statistique des localisations uniques
+        const locations = [...new Set(jobs.map(job => job.location))];
+        document.getElementById('locations-count').textContent = locations.length;
+      })
+      .catch(error => {
+        console.error('Erreur lors du chargement des données:', error);
+      });
+  </script>
+
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script src="https://unpkg.com/netlify-cms@^2.10.0/dist/netlify-cms.js"></script>
+</body>
+</html>
