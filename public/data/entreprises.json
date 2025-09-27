@@ -1,0 +1,9 @@
+{
+  "entreprises": [
+    {
+      "name": "Agicon",
+      "logo": "/img/agicon-logo.png",
+      "description": "Entreprise spécialisée dans le développement informatique",
+    }
+  ]
+}
