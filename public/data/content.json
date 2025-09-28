@@ -1,59 +1,78 @@
 {
   "content": [
     {
-      "id": "1",
-      "title": "Chargé de projet humanitaire",
-      "company": "World Vision Niger",
-      "location": "Niamey, Niger",
-      "type": "CDD",
-      "sector": "Humanitaire et Développement",
-      "date": "2024-01-15T00:00:00.000Z",
-      "expirationDate": "2024-02-15T00:00:00.000Z",
-      "description": "Nous recherchons un Chargé de projet humanitaire pour coordonner nos interventions dans la région de Niamey. Le candidat sera responsable de la planification, mise en œuvre et suivi des projets de développement communautaire.\n\nMissions principales :\n- Coordination des activités terrain\n- Gestion d'équipe\n- Suivi budgétaire\n- Rédaction de rapports",
-      "requirements": "Profil recherché :\n- Master en développement international ou domaine équivalent\n- Minimum 3 ans d'expérience en gestion de projet humanitaire\n- Excellentes compétences en communication et leadership\n- Maîtrise du français et notions d'anglais\n- Connaissance du contexte nigérien appréciée",
-      "experience": "3 ans minimum en gestion de projet",
-      "education": "MASTER ou équivalent",
       "skills": [
         "Gestion de projet",
         "Suivi-évaluation",
         "Budgetisation",
         "Coordination d'équipe"
       ],
+      "sector": "Humanitaire et Développement",
+      "education": "MASTER ou équivalent",
+      "experience": "3 ans minimum en gestion de projet",
       "salary": "Selon expérience et grille de l'organisation",
       "author": "Admin",
-      "contactEmail": "rh@worldvision.ne",
       "contactPhone": "+227 90 12 34 56",
+      "date": "2024-01-15T00:00:00.000Z",
+      "requirements": "Profil recherché :\n- Master en développement international ou domaine équivalent\n- Minimum 3 ans d'expérience en gestion de projet humanitaire\n- Excellentes compétences en communication et leadership\n- Maîtrise du français et notions d'anglais\n- Connaissance du contexte nigérien appréciée",
+      "location": "Niamey, Niger",
+      "title": "Chargé de projet humanitaire",
       "tags": [
         "humanitaire",
         "coordination",
         "gestion"
-      ]
+      ],
+      "type": "CDD",
+      "id": "1",
+      "contactEmail": "rh@worldvision.ne",
+      "description": "Nous recherchons un Chargé de projet humanitaire pour coordonner nos interventions dans la région de Niamey. Le candidat sera responsable de la planification, mise en œuvre et suivi des projets de développement communautaire.\n\nMissions principales :\n- Coordination des activités terrain\n- Gestion d'équipe\n- Suivi budgétaire\n- Rédaction de rapports",
+      "company": "World Vision Niger",
+      "expirationDate": "2024-02-15T00:00:00.000Z"
     },
     {
-      "id": "2",
-      "title": "Agent de développement communautaire",
-      "company": "ONG Action Solidaire",
-      "location": "Maradi, Niger",
-      "type": "Contrat à durée déterminée",
-      "sector": "Développement rural",
-      "date": "2024-01-10T00:00:00.000Z",
-      "expirationDate": "2024-01-31T00:00:00.000Z",
-      "description": "Agent de terrain pour la mise en œuvre des activités de développement communautaire dans la région de Maradi.",
-      "requirements": "BAC+2 en développement rural ou domaine similaire, expérience en travail communautaire, maîtrise des langues locales",
-      "experience": "1 an minimum",
-      "education": "BTS/DUT ou équivalent",
       "skills": [
         "Animation communautaire",
         "Sensibilisation",
         "Suivi des activités"
       ],
+      "sector": "Développement rural",
+      "education": "BTS/DUT ou équivalent",
+      "experience": "1 an minimum",
       "salary": "À discuter",
       "author": "Admin",
+      "date": "2024-01-10T00:00:00.000Z",
+      "requirements": "BAC+2 en développement rural ou domaine similaire, expérience en travail communautaire, maîtrise des langues locales",
+      "location": "Maradi, Niger",
+      "title": "Agent de développement communautaire",
       "tags": [
         "terrain",
         "communautaire",
         "animation"
-      ]
+      ],
+      "type": "Contrat à durée déterminée",
+      "id": "2",
+      "description": "Agent de terrain pour la mise en œuvre des activités de développement communautaire dans la région de Maradi.",
+      "company": "ONG Action Solidaire",
+      "expirationDate": "2024-01-31T00:00:00.000Z"
+    },
+    {
+      "skills": [],
+      "adminApproved": false,
+      "sector": "Communication ",
+      "education": "BTS en communication ",
+      "experience": "3 ans",
+      "author": "Admin",
+      "published": true,
+      "date": "2025-09-28T23:54:55.523Z",
+      "requirements": "Communication ",
+      "location": "Niamey ",
+      "title": "Agent promotion ",
+      "tags": [],
+      "type": "CDD",
+      "id": "3",
+      "description": "Communication \nPromotion \nSensibilisation ",
+      "company": "Sahelpro",
+      "expirationDate": "2025-09-28T23:54:55.718Z"
     }
   ]
 }
