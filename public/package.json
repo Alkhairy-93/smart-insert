@@ -1,0 +1,12 @@
+{
+  "name": "smart-insert",
+  "version": "1.0.0",
+  "description": "Plateforme d'offres d'emploi au Niger",
+  "dependencies": {
+    "node-fetch": "^2.6.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "build": "echo 'Build completed'"
+  }
+}
