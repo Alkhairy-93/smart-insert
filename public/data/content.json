@@ -30,11 +30,13 @@
       "expirationDate": "2024-02-15T00:00:00.000Z"
     },
     {
-      "skills": [],
+      "skills": [
+        "Canva"
+      ],
       "adminApproved": false,
       "sector": "Communication ",
       "education": "BTS en communication ",
-      "experience": "3 ans",
+      "experience": "3 ans dans le domaine communication ",
       "author": "Admin",
       "published": true,
       "date": "2025-09-28T23:54:55.523Z",
