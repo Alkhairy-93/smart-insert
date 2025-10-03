@@ -1,0 +1,2771 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Insert - Offres d'emploi au Niger</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0fff4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        },
+                        secondary: {
+                            50: '#fff7ed',
+                            100: '#ffedd5',
+                            200: '#fed7aa',
+                            300: '#fdba74',
+                            400: '#fb923c',
+                            500: '#f97316',
+                            600: '#ea580c',
+                            700: '#c2410c',
+                            800: '#9a3412',
+                            900: '#7c2d12',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            scroll-behavior: smooth;
+        }
+        
+        .card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border-left: 4px solid transparent;
+        }
+        
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-left-color: #fb923c;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 50;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 24px;
+            border: none;
+            width: 90%;
+            max-width: 700px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            animation: slideIn 0.3s ease;
+            position: relative;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s;
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            z-index: 10;
+        }
+        
+        .close:hover {
+            color: #333;
+        }
+        
+        .btn-primary {
+            background: #22c55e;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background: #16a34a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+        }
+        
+        .btn-secondary {
+            background: #f97316;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            background: #ea580c;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+        }
+        
+        .search-input {
+            transition: all 0.3s ease;
+            border: 2px solid #e2e8f0;
+        }
+        
+        .search-input:focus {
+            border-color: #86efac;
+            box-shadow: 0 0 0 3px rgba(134, 239, 172, 0.3);
+        }
+        
+        .filter-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            margin-top: 16px;
+            color: #475569;
+        }
+        
+        .filter-label i {
+            color: #fb923c;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #22c55e;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        .company-logo {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f1f5f9;
+            border-radius: 8px;
+            font-weight: bold;
+            color: #fb923c;
+            margin: 0 auto 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .company-logo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        
+        .pagination-btn {
+            transition: all 0.2s ease;
+        }
+        
+        .pagination-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .pagination-btn:not(:disabled):hover {
+            background-color: #dcfce7;
+        }
+        
+        .tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 500;
+            margin-right: 6px;
+            margin-bottom: 6px;
+        }
+        
+        .tag-contract {
+            background-color: #dcfce7;
+            color: #166534;
+        }
+        
+        .tag-sector {
+            background-color: #f0fdf4;
+            color: #166534;
+        }
+        
+        .tag-location {
+            background-color: #ffedd5;
+            color: #9a3412;
+        }
+        
+        .tag-date {
+            background-color: #fae8ff;
+            color: #a21caf;
+        }
+        
+        .salary {
+            font-weight: 600;
+            color: #166534;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Styles pour l'analyseur de CV amélioré */
+        .cv-analyzer-improved {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .analysis-section {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            border-radius: 8px;
+            background-color: #f8fafc;
+        }
+        
+        .section-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #374151;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-score {
+            font-weight: bold;
+            margin-left: auto;
+        }
+        
+        .skill-bar {
+            height: 8px;
+            background-color: #e5e7eb;
+            border-radius: 4px;
+            margin: 8px 0;
+            overflow: hidden;
+        }
+        
+        .skill-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.8s ease;
+        }
+        
+        .skill-match {
+            background-color: #10b981;
+        }
+        
+        .skill-partial {
+            background-color: #f59e0b;
+        }
+        
+        .skill-missing {
+            background-color: #ef4444;
+        }
+        
+        .keyword-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        
+        .keyword-item {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        
+        .keyword-match {
+            background-color: #d1fae5;
+            color: #065f46;
+        }
+        
+        .keyword-partial {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+        
+        .keyword-missing {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .analysis-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border-left: 4px solid #22c55e;
+        }
+        
+        .analysis-card.warning {
+            border-left-color: #f59e0b;
+        }
+        
+        .analysis-card.critical {
+            border-left-color: #ef4444;
+        }
+        
+        .match-level {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+        
+        .match-high {
+            background-color: #d1fae5;
+            color: #065f46;
+        }
+        
+        .match-medium {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+        
+        .match-low {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .recommendation-item {
+            padding: 8px 12px;
+            margin-bottom: 8px;
+            border-radius: 6px;
+            background-color: #f0fdf4;
+            border-left: 3px solid #22c55e;
+        }
+        
+        .recommendation-item.warning {
+            background-color: #fffbeb;
+            border-left-color: #f59e0b;
+        }
+        
+        .recommendation-item.critical {
+            background-color: #fef2f2;
+            border-left-color: #ef4444;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            border-radius: 5px;
+            background-color: #e5e7eb;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            border-radius: 5px;
+            background: #22c55e;
+            transition: width 0.5s ease;
+        }
+        
+        .score-circle {
+            width: 100px;
+            height: 100px;
+            position: relative;
+            margin: 0 auto;
+        }
+        
+        .circle-bg {
+            fill: none;
+            stroke: #e5e7eb;
+            stroke-width: 3.8;
+        }
+        
+        .circle {
+            fill: none;
+            stroke-width: 3.8;
+            stroke-linecap: round;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+            transition: stroke-dashoffset 0.8s ease;
+        }
+        
+        .circle-value {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .pdf-upload-container {
+            border: 2px dashed #cbd5e1;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .pdf-upload-container:hover {
+            border-color: #22c55e;
+            background-color: #f0fff4;
+        }
+        
+        .pdf-upload-icon {
+            font-size: 3rem;
+            color: #22c55e;
+            margin-bottom: 10px;
+        }
+        
+        .pdf-preview {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .pdf-preview p {
+            margin: 5px 0;
+        }
+        
+        .pdf-extracted-text {
+            max-height: 200px;
+            overflow-y: auto;
+            padding: 10px;
+            background: white;
+            border-radius: 4px;
+            border: 1px solid #e2e8f0;
+            margin-top: 10px;
+            font-size: 0.875rem;
+            white-space: pre-wrap;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+        
+        .job-match-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #22c55e;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .cv-info-form {
+            background-color: #f0fff4;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #22c55e;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #374151;
+        }
+        
+        .form-select, .form-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        
+        .form-select:focus, .form-input:focus {
+            outline: none;
+            border-color: #22c55e;
+            box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+        }
+        
+        .required-field::after {
+            content: '*';
+            color: #ef4444;
+            margin-left: 3px;
+        }
+        
+        .site-logo {
+            height: 40px;
+            width: auto;
+            object-fit: contain;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-content {
+                flex-direction: column;
+            }
+            
+            .search-input, .search-btn {
+                width: 100%;
+            }
+            
+            .cv-analyzer-improved {
+                padding: 1rem;
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 10% auto;
+                padding: 20px;
+            }
+            
+            .site-logo {
+                height: 35px;
+            }
+            
+            /* Correction pour l'affichage du nom et slogan en mobile */
+            .mobile-brand {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                margin-bottom: 10px;
+            }
+            
+            .mobile-brand .text-2xl {
+                font-size: 1.5rem;
+            }
+            
+            .mobile-brand .text-sm {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50">
+    <header class="bg-white shadow-sm sticky top-0 z-40">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center">
+                <div class="flex items-center">
+                    <img id="site-logo" src="/img/logo.png" alt="Smart Insert" class="site-logo mr-2">
+                    <div class="text-2xl font-bold text-orange-400 hidden md:block">Smart Insert</div>
+                </div>
+                <div class="ml-2 text-sm text-gray-600 hidden md:block" id="site-slogan"></div>
+            </div>
+            
+            <!-- Affichage mobile du nom et slogan -->
+            <div class="md:hidden mobile-brand">
+                <div class="text-2xl font-bold text-orange-400">Smart Insert</div>
+                <div class="text-sm text-gray-600" id="mobile-slogan"></div>
+            </div>
+            
+            <nav class="hidden md:flex items-center gap-6">
+                <a class="text-sm font-medium hover:text-orange-400 transition-colors" href="#offres">Offres</a>
+                <a class="text-sm font-medium hover:text-orange-400 transition-colors" href="#entreprises">Entreprises</a>
+                <a class="text-sm font-medium hover:text-orange-400 transition-colors" href="#conseils">Conseils</a>
+                <div data-netlify-identity-menu></div>
+            </nav>
+            
+            <button class="md:hidden text-gray-600" id="mobileMenuBtn">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+        
+        <!-- Menu mobile -->
+        <div class="md:hidden bg-white shadow-md hidden" id="mobileMenu">
+            <div class="container mx-auto px-4 py-3 flex flex-col space-y-3">
+                <a class="text-sm font-medium hover:text-orange-400 py-2" href="#offres">Offres d'emploi</a>
+                <a class="text-sm font-medium hover:text-orange-400 py-2" href="#entreprises">Entreprises</a>
+                <a class="text-sm font-medium hover:text-orange-400 py-2" href="#conseils">Conseils CV</a>
+                <div data-netlify-identity-menu></div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <!-- Section Hero -->
+        <section class="bg-gradient-to-r from-green-600 to-green-800 text-white rounded-2xl p-8 mb-8 shadow-lg">
+            <div class="max-w-4xl mx-auto">
+                <h1 class="text-3xl md:text-4xl font-bold mb-4 text-orange-300">Bienvenue chez Smart Insert</h1>
+                <p class="mb-6 text-lg opacity-90">Trouvez l'emploi qui vous correspond, dans tous les secteurs et partout au Niger.</p>
+                
+                <div class="bg-white p-2 rounded-lg shadow-inner">
+                    <form id="searchForm" class="flex flex-col md:flex-row gap-2">
+                        <div class="flex-1 flex flex-col md:flex-row gap-2">
+                            <div class="relative flex-1">
+                                <i class="fas fa-search absolute left-3 top-3.5 text-gray-400"></i>
+                                <input id="q" type="search" placeholder="Métier, compétence ou entreprise" class="pl-10 pr-4 py-3 rounded-lg border-0 search-input text-gray-800 w-full" />
+                            </div>
+                            <div class="relative flex-1">
+                                <i class="fas fa-map-marker-alt absolute left-3 top-3.5 text-gray-400"></i>
+                                <input id="location" type="text" placeholder="Ville ou région" class="pl-10 pr-4 py-3 rounded-lg border-0 search-input text-gray-800 w-full" />
+                            </div>
+                        </div>
+                        <button type="submit" class="px-6 py-3 bg-green-600 text-white rounded-lg font-medium flex items-center justify-center">
+                            <i class="fas fa-search mr-2"></i> Rechercher
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="mt-4 flex flex-wrap gap-2">
+                    <span class="text-sm opacity-80">Suggestions :</span>
+                    <button class="text-sm bg-white/20 hover:bg-white/30 px-3 py-1 rounded-full transition-colors suggestion-btn" data-suggestion="Agent de terrain">Agent de terrain</button>
+                    <button class="text-sm bg-white/20 hover:bg-white/30 px-3 py-1 rounded-full transition-colors suggestion-btn" data-suggestion="Chargé de projet">Chargé de projet</button>
+                    <button class="text-sm bg-white/20 hover:bg-white/30 px-3 py-1 rounded-full transition-colors suggestion-btn" data-suggestion="Niamey">Niamey</button>
+                </div>
+            </div>
+        </section>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Sidebar -->
+            <aside class="lg:col-span-1">
+                <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+                    <h3 class="font-semibold text-lg flex items-center">
+                        <i class="fas fa-filter mr-2 text-orange-400"></i> Filtres
+                    </h3>
+                    
+                    <div class="filter-label">
+                        <i class="fas fa-file-contract text-orange-400"></i>
+                        <span>Type de contrat</span>
+                    </div>
+                    <select id="contract" class="w-full p-3 border rounded-lg mt-1 search-input">
+                        <option value="">Tous les contrats</option>
+                        <option>CDD</option>
+                        <option>CDI</option>
+                        <option>Stage</option>
+                        <option>Consultant</option>
+                        <option>Freelance</option>
+                    </select>
+                    
+                    <div class="filter-label">
+                        <i class="fas fa-industry text-orange-400"></i>
+                        <span>Secteur d'activité</span>
+                    </div>
+                    <select id="sector" class="w-full p-3 border rounded-lg mt-1 search-input">
+                        <option value="">Tous les secteurs</option>
+                        <option>Humanitaire</option>
+                        <option>Agriculture</option>
+                        <option>Éducation</option>
+                        <option>Santé</option>
+                        <option>Services</option>
+                        <option>Commerce</option>
+                        <option>Construction</option>
+                        <option>Technologie</option>
+                    </select>
+                    
+                    <div class="filter-label">
+                        <i class="fas fa-calendar-alt text-orange-400"></i>
+                        <span>Date de publication</span>
+                    </div>
+                    <select id="datePosted" class="w-full p-3 border rounded-lg mt-1 search-input">
+                        <option value="">Toutes les dates</option>
+                        <option value="7">Il y a moins d'une semaine</option>
+                        <option value="30">Il y a moins d'un mois</option>
+                        <option value="90">Il y a moins de 3 mois</option>
+                    </select>
+                    
+                    <div class="mt-5 flex justify-between">
+                        <button id="applyFilters" class="px-4 py-2 bg-green-600 text-white rounded-lg text-sm">
+                            Appliquer
+                        </button>
+                        <button id="clearFilters" class="px-4 py-2 border border-gray-300 text-gray-600 rounded-lg text-sm hover:bg-gray-50">
+                            Tout effacer
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="mt-6 bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+                    <h4 class="font-semibold text-lg flex items-center">
+                        <i class="fas fa-building mr-2 text-orange-400"></i> Entreprises populaires
+                    </h4>
+                    <ul class="mt-4 space-y-3" id="popular-companies">
+                        <!-- Les entreprises populaires seront chargées ici -->
+                    </ul>
+                </div>
+                
+                <div class="mt-6 bg-green-50 rounded-xl p-5 border border-green-100">
+                    <h4 class="font-semibold text-lg flex items-center text-green-700">
+                        <i class="fas fa-bell mr-2"></i> Alertes emploi
+                    </h4>
+                    <p class="mt-2 text-sm text-green-600">Recevez les nouvelles offres - s'inscrire</p>
+                    <div class="mt-3">
+                        <a id="whatsapp-alerts" href="https://wa.me/22790143507?text=Je%20souhaite%20recevoir%20des%20alertes%20emploi%20sur%20WhatsApp" class="mt-2 w-full px-4 py-2 bg-green-600 text-white rounded-lg text-sm block text-center">
+                            S'inscrire via WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Job list -->
+            <section id="offres" class="lg:col-span-3">
+                <div class="flex flex-col md:flex-row items-center justify-between mb-6">
+                    <h3 class="text-xl font-semibold flex items-center">
+                        <i class="fas fa-briefcase mr-2 text-orange-400"></i> Offres d'emploi
+                    </h3>
+                    <div class="text-sm text-gray-600 mt-2 md:mt-0">
+                        <span id="count">0</span> offres trouvées
+                        <span id="filterIndicator" class="hidden ml-2 bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs"></span>
+                    </div>
+                </div>
+                
+                <div class="loading">
+                    <div class="loading-spinner"></div>
+                    <p class="mt-3 text-gray-600">Recherche en cours...</p>
+                </div>
+                
+                <div id="jobs" class="grid grid-cols-1 gap-4"></div>
+                
+                <!-- Pagination -->
+                <div class="mt-8 flex justify-center items-center space-x-4">
+                    <button id="prev" class="pagination-btn px-4 py-2 rounded-lg border border-gray-300 text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center">
+                        <i class="fas fa-chevron-left mr-2 text-xs"></i> Précédent
+                    </button>
+                    <span class="text-sm text-gray-600" id="paginationInfo">Page 1 sur 1</span>
+                    <button id="next" class="pagination-btn px-4 py-2 rounded-lg border border-gray-300 text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center">
+                        Suivant <i class="fas fa-chevron-right ml-2 text-xs"></i>
+                    </button>
+                </div>
+            </section>
+        </div>
+
+        <!-- Section Analyse de CV améliorée -->
+        <section id="analyse-cv" class="mt-16 py-8 hidden">
+            <h2 class="text-2xl font-bold mb-6 flex items-center">
+                <i class="fas fa-search mr-3 text-orange-400"></i> Analysez votre CV
+            </h2>
+            <div class="cv-analyzer-improved">
+                <p class="text-gray-700 mb-4">Téléchargez votre CV en format PDF ou collez le texte de votre CV, ainsi que la description du poste pour obtenir une analyse détaillée de correspondance.</p>
+                
+                <!-- Fiche d'informations obligatoire améliorée -->
+                <div class="cv-info-form" id="cvInfoForm">
+                    <h3 class="text-lg font-semibold mb-4 text-green-700">
+                        <i class="fas fa-info-circle mr-2"></i> Informations requises pour l'analyse
+                    </h3>
+                    <p class="text-sm text-gray-600 mb-4">Ces informations nous aideront à améliorer la précision de l'analyse de votre CV.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="form-group">
+                            <label class="form-label required-field">Niveau d'études</label>
+                            <select id="education-level" class="form-select" required>
+                                <option value="">Sélectionnez votre niveau</option>
+                                <option value="CFEPD">CFEPD</option>
+                                <option value="BEPC">BEPC</option>
+                                <option value="BAC">BAC</option>
+                                <option value="BTS">BTS</option>
+                                <option value="LICENCE">LICENCE</option>
+                                <option value="MASTER">MASTER</option>
+                                <option value="DOCTORAT">DOCTORAT</option>
+                                <option value="AUTRE">Autre</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label required-field">Années d'expérience (en lien avec le poste)</label>
+                            <input type="number" id="years-experience" class="form-input" min="0" max="50" step="0.5" placeholder="Ex: 3.5" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label required-field">Domaine d'expertise principal</label>
+                            <select id="expertise-domain" class="form-select" required>
+                                <option value="">Sélectionnez votre domaine</option>
+                                <option value="Informatique">Informatique</option>
+                                <option value="Gestion">Gestion</option>
+                                <option value="Commerce">Commerce</option>
+                                <option value="Santé">Santé</option>
+                                <option value="Éducation">Éducation</option>
+                                <option value="Ingénierie">Ingénierie</option>
+                                <option value="Agriculture">Agriculture</option>
+                                <option value="Droit">Droit</option>
+                                <option value="Communication">Communication</option>
+                                <option value="Autre">Autre</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label required-field">Niveau de maîtrise linguistique (français)</label>
+                            <select id="language-level" class="form-select" required>
+                                <option value="">Sélectionnez votre niveau</option>
+                                <option value="Débutant">Débutant</option>
+                                <option value="Intermédiaire">Intermédiaire</option>
+                                <option value="Avancé">Avancé</option>
+                                <option value="Bilingue">Bilingue</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <button id="submit-cv-info" class="mt-4 px-6 py-3 bg-green-600 text-white rounded-lg font-medium">
+                        Valider et continuer
+                    </button>
+                </div>
+                
+                <div id="cv-analysis-content" class="hidden">
+                    <div class="pdf-upload-container" id="pdfUploadContainer">
+                        <div class="pdf-upload-icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <p class="font-medium">Déposez votre CV PDF ici ou cliquez pour parcourir</p>
+                        <p class="text-sm text-gray-500 mt-1">Supporté: PDF (max. 5MB)</p>
+                        <input type="file" id="cv-pdf" accept=".pdf" class="hidden">
+                    </div>
+                    
+                    <div id="pdf-preview" class="pdf-preview">
+                        <div class="flex justify-between items-center">
+                            <p class="font-medium">Fichier sélectionné: <span id="pdf-filename"></span></p>
+                            <button id="remove-pdf" class="text-red-500 hover:text-red-700">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="mt-2">
+                            <p class="text-sm text-gray-600">Texte extrait:</p>
+                            <div id="pdf-extracted-text" class="pdf-extracted-text"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <label class="block text-sm font-medium text-gray-700">Ou collez le texte de votre CV</label>
+                        <textarea id="cv-text" class="w-full p-3 border rounded-lg mt-1 search-input" placeholder="Collez votre CV ici..." rows="8"></textarea>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <label class="block text-sm font-medium text-gray-700">Description du poste</label>
+                        <textarea id="job-desc" class="w-full p-3 border rounded-lg mt-1 search-input" placeholder="Description du poste..." rows="4"></textarea>
+                    </div>
+                    
+                    <button id="analyze-btn" class="mt-4 px-6 py-3 bg-green-600 text-white rounded-lg font-medium">Analyser la correspondance</button>
+                </div>
+                
+                <div id="analyzer-result" class="hidden">
+                    <div class="text-center mb-6">
+                        <div class="score-circle">
+                            <svg viewBox="0 0 36 36" class="circular-chart">
+                                <path class="circle-bg"
+                                    d="M18 2.0845
+                                    a 15.9155 15.9155 0 0 1 0 31.831
+                                    a 15.9155 15.9155 0 0 1 0 -31.831"
+                                />
+                                <path class="circle" stroke="#22c55e"
+                                    stroke-dasharray="0, 100"
+                                    d="M18 2.0845
+                                    a 15.9155 15.9155 0 0 1 0 31.831
+                                    a 15.9155 15.9155 0 0 1 0 -31.831"
+                                />
+                            </svg>
+                            <div class="circle-value">0%</div>
+                        </div>
+                        <h3 class="text-xl font-semibold mt-2">Score de correspondance</h3>
+                        <p class="text-gray-600 mt-2" id="score-interpretation"></p>
+                    </div>
+                    
+                    <div class="analysis-section">
+                        <h4 class="section-title">
+                            <i class="fas fa-chart-bar mr-2 text-green-600"></i>
+                            Analyse détaillée par critères
+                            <span class="section-score" id="detailed-score">0%</span>
+                        </h4>
+                        
+                        <div class="analysis-grid">
+                            <div class="analysis-card" id="education-card">
+                                <div class="flex justify-between items-center">
+                                    <h5 class="font-medium">Éducation</h5>
+                                    <span class="match-level match-high" id="education-match">0%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-fill skill-match" id="education-bar" style="width: 0%"></div>
+                                </div>
+                                <p class="text-sm text-gray-600 mt-2" id="education-feedback"></p>
+                            </div>
+                            
+                            <div class="analysis-card" id="experience-card">
+                                <div class="flex justify-between items-center">
+                                    <h5 class="font-medium">Expérience</h5>
+                                    <span class="match-level match-high" id="experience-match">0%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-fill skill-match" id="experience-bar" style="width: 0%"></div>
+                                </div>
+                                <p class="text-sm text-gray-600 mt-2" id="experience-feedback"></p>
+                            </div>
+                            
+                            <div class="analysis-card" id="skills-card">
+                                <div class="flex justify-between items-center">
+                                    <h5 class="font-medium">Compétences</h5>
+                                    <span class="match-level match-high" id="skills-match">0%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-fill skill-match" id="skills-bar" style="width: 0%"></div>
+                                </div>
+                                <p class="text-sm text-gray-600 mt-2" id="skills-feedback"></p>
+                            </div>
+                            
+                            <div class="analysis-card" id="domain-card">
+                                <div class="flex justify-between items-center">
+                                    <h5 class="font-medium">Domaine d'expertise</h5>
+                                    <span class="match-level match-high" id="domain-match">0%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-fill skill-match" id="domain-bar" style="width: 0%"></div>
+                                </div>
+                                <p class="text-sm text-gray-600 mt-2" id="domain-feedback"></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-section">
+                        <h4 class="section-title">
+                            <i class="fas fa-key mr-2 text-blue-600"></i>
+                            Analyse des mots-clés
+                        </h4>
+                        
+                        <div class="mb-4">
+                            <h5 class="font-medium mb-2">Mots-clés correspondants</h5>
+                            <div class="keyword-list" id="matched-keywords"></div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <h5 class="font-medium mb-2">Mots-clés partiellement correspondants</h5>
+                            <div class="keyword-list" id="partial-keywords"></div>
+                        </div>
+                        
+                        <div>
+                            <h5 class="font-medium mb-2">Mots-clés manquants</h5>
+                            <div class="keyword-list" id="missing-keywords"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-section">
+                        <h4 class="section-title">
+                            <i class="fas fa-lightbulb mr-2 text-yellow-600"></i>
+                            Recommandations personnalisées
+                        </h4>
+                        
+                        <div id="recommendations-list"></div>
+                    </div>
+                    
+                    <div class="mt-6 flex justify-end">
+                        <button id="save-result-btn" class="px-4 py-2 bg-green-600 text-white rounded-lg text-sm font-medium flex items-center">
+                            <i class="fas fa-save mr-2"></i> Enregistrer le résultat
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Entreprises -->
+        <section id="entreprises" class="mt-16 py-8">
+            <h2 class="text-2xl font-bold mb-6 flex items-center">
+                <i class="fas fa-building mr-3 text-orange-400"></i> Entreprises partenaires
+            </h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="entreprises-container">
+                <!-- Les entreprises seront chargées ici dynamiquement -->
+            </div>
+        </section>
+
+        <!-- Section Conseils -->
+        <section id="conseils" class="mt-16 py-8">
+            <h2 class="text-2xl font-bold mb-6 flex items-center">
+                <i class="fas fa-graduation-cap mr-3 text-orange-400"></i> Conseils pour votre recherche
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                    <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-file-alt text-orange-400"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">Structurez votre CV</h3>
+                    <p class="text-gray-700">Un bon CV doit être clair, concis et mettre en valeur vos compétences principales. Adaptez-le à chaque offre.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                    <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-clipboard-list text-orange-400"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">Lettre de motivation</h3>
+                    <p class="text-gray-700">Personnalisez votre lettre pour chaque emploi. Montrez votre intérêt spécifique pour l'entreprise et le poste.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                    <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-handshake text-orange-400"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">Préparation entretien</h3>
+                    <p class="text-gray-700">Anticipez les questions, renseignez-vous sur l'entreprise et préparez vos propres questions pour l'employeur.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-12 mt-16">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-bold mb-4 flex items-center">
+                        <img id="footer-logo" src="/img/logo.png" alt="Smart Insert" class="h-8 mr-2">
+                        <span>Smart Insert</span>
+                    </h3>
+                    <p class="text-sm text-gray-400" id="footer-slogan">Votre plateforme d'emploi au Niger. Nous connectons les talents aux meilleures opportunités.</p>
+                </div>
+                
+                <div>
+                    <h4 class="text-md font-semibold mb-4">Navigation</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#offres" class="text-sm text-gray-300 hover:text-white transition-colors">Offres d'emploi</a></li>
+                        <li><a href="#entreprises" class="text-sm text-gray-300 hover:text-white transition-colors">Entreprises</a></li>
+                        <li><a href="#conseils" class="text-sm text-gray-300 hover:text-white transition-colors">Conseils CV</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-md font-semibold mb-4">Légal</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white transition-colors" id="conditionsLink">Conditions d'utilisation</a></li>
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white transition-colors" id="privacyLink">Politique de confidentialité</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-md font-semibold mb-4">Contact</h4>
+                    <div class="flex items-center mb-2">
+                        <i class="fab fa-whatsapp mr-2 text-gray-300"></i>
+                        <a id="footer-whatsapp" href="https://wa.me/22790143507" class="text-sm text-gray-300 hover:text-white transition-colors">+227 90 14 35 07</a>
+                    </div>
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-envelope mr-2 text-gray-300"></i>
+                        <span id="footer-email" class="text-sm text-gray-300">abdoulazizeaboubacare@yahoo.fr</span>
+                    </div>
+                    <div class="flex items-center mt-4 space-x-3">
+                        <a href="#" class="text-gray-300 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-white"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-10 pt-8 border-t border-gray-700 text-center text-sm text-gray-400">
+                © <span id="year"></span> Smart Insert. Tous droits réservés.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal Conditions d'utilisation -->
+    <div id="conditionsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" data-modal="conditionsModal">&times;</span>
+            <h2 class="text-2xl font-bold mb-4">Conditions d'utilisation</h2>
+            <div class="text-gray-700">
+                <p class="mb-4">En utilisant ce site, vous accepte les conditions suivantes :</p>
+                <ul class="list-disc pl-5 space-y-2">
+                    <li>Le site Smart Insert est une plateforme de mise en relation entre chercheurs d'emploi et employeurs</li>
+                    <li>L'utilisation des données personnelles est régie par notre politique de confidentialité</li>
+                    <li>Smart Insert se réserve le droit de modifier ces conditions à tout moment</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Politique de confidentialité -->
+    <div id="privacyModal" class="modal">
+        <div class="modal-content">
+            <span class="close" data-modal="privacyModal">&times;</span>
+            <h2 class="text-2xl font-bold mb-4">Politique de confidentialité</h2>
+            <div class="text-gray-700">
+                <p class="mb-4">Chez Smart Insert, nous prenons la protection de vos données personnelles très au sérieux :</p>
+                <ul class="list-disc pl-5 space-y-2">
+                    <li>Nous collectons uniquement les informations nécessaires à la mise en relation avec les employeurs</li>
+                    <li>Vos données ne sont pas soldes à des tiers à des fins commerciales</li>
+                    <li>Les CV et informations personnelles sont accessibles uniquement aux recruteurs pour lesquels vous postulez</li>
+                    <li>Vous pouvez à tout moment demander la suppression de vos données personnelles</li>
+                    <li>Nous utilisons des technologies de cryptage pour protéger vos informations</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Données des offres d'emploi (seront chargées via fetch)
+        let JOBS = [];
+        let jobsLoaded = false;
+        let SETTINGS = {};
+        let PARTNER_ENTERPRISES = [];
+
+        // État de l'application
+        let currentPage = 1;
+        const jobsPerPage = 4;
+        let filteredJobs = [];
+        let activeFilters = {};
+        let currentAnalysisResult = null;
+        let currentJobIdForAnalysis = null;
+        let userEducationLevel = '';
+        let userExperienceYears = 0;
+
+        // Données améliorées pour l'analyseur de CV
+        const EDUCATION_LEVELS = {
+            "CFEPD": 1,
+            "BEPC": 2,
+            "BAC": 3,
+            "BTS": 4,
+            "LICENCE": 5,
+            "MASTER": 6,
+            "DOCTORAT": 7
+        };
+
+        const EXPERTISE_DOMAINS = {
+            "Informatique": ["programmation", "développement", "réseaux", "base de données", "sécurité", "cloud"],
+            "Gestion": ["comptabilité", "finance", "ressources humaines", "management", "stratégie", "budget"],
+            "Commerce": ["vente", "marketing", "négociation", "relation client", "commerce", "merchandising"],
+            "Santé": ["médecine", "soins", "pharmacie", "biologie", "santé publique", "paramédical"],
+            "Éducation": ["enseignement", "formation", "pédagogie", "curriculum", "éducation", "apprentissage"],
+            "Ingénierie": ["conception", "construction", "maintenance", "technique", "ingénierie", "fabrication"],
+            "Agriculture": ["agronomie", "élevage", "cultures", "agriculture", "agroalimentaire", "sylviculture"],
+            "Droit": ["juridique", "légal", "droit", "contrats", "litiges", "réglementation"],
+            "Communication": ["médias", "journalisme", "publicité", "relations publiques", "communication", "médias sociaux"]
+        };
+
+        // Fonction pour obtenir les coordonnées de contact (spécifiques ou générales)
+        function getContactInfo(job) {
+            const generalEmail = SETTINGS.email_contact || 'abdoulazizeaboubacare@yahoo.fr';
+            const generalWhatsApp = SETTINGS.whatsapp_contact || '22790143507';
+            
+            return {
+                email: job.contactEmail || generalEmail,
+                whatsapp: job.contactWhatsApp || generalWhatsApp
+            };
+        }
+
+        // Fonction utilitaire pour gérer les champs optionnels
+        function getFieldValue(value, defaultValue = 'Non spécifié') {
+            return value && value !== '' ? value : defaultValue;
+        }
+
+        // Fonction pour charger les paramètres du site
+        async function loadSettings() {
+            try {
+                const response = await fetch('/data/settings.json');
+                const data = await response.json();
+                SETTINGS = data;
+                
+                // Mettre à jour le logo du site
+                if (data.site_logo) {
+                    document.getElementById('site-logo').src = data.site_logo;
+                    document.getElementById('footer-logo').src = data.site_logo;
+                }
+                
+                // Mettre à jour le nom du site
+                if (data.site_name) {
+                    document.querySelector('.text-2xl.font-bold.text-orange-400').textContent = data.site_name;
+                    document.querySelector('footer h3 span').textContent = data.site_name;
+                    document.title = data.site_name + ' - Offres d\'emploi au Niger';
+                }
+                
+                // Mettre à jour le slogan
+                if (data.slogan) {
+                    document.getElementById('site-slogan').textContent = data.slogan;
+                    document.getElementById('footer-slogan').textContent = data.slogan;
+                    document.getElementById('mobile-slogan').textContent = data.slogan;
+                }
+                
+                // Mettre à jour les contacts
+                if (data.whatsapp_contact) {
+                    const whatsappNumber = data.whatsapp_contact.replace(/\D/g, '');
+                    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=Je%20suis%20intéressé%20par%20vos%20services`;
+                    
+                    document.getElementById('whatsapp-contact').href = whatsappUrl;
+                    document.getElementById('whatsapp-contact-mobile').href = whatsappUrl;
+                    document.getElementById('whatsapp-alerts').href = `https://wa.me/${whatsappNumber}?text=Je%20souhaite%20recevoir%20des%20alertes%20emploi%20sur%20WhatsApp`;
+                    document.getElementById('footer-whatsapp').href = `https://wa.me/${whatsappNumber}`;
+                    document.getElementById('footer-whatsapp').textContent = data.whatsapp_contact;
+                }
+                
+                if (data.email_contact) {
+                    document.getElementById('footer-email').textContent = data.email_contact;
+                }
+                
+            } catch (error) {
+                console.error('Erreur lors du chargement des paramètres:', error);
+            }
+        }
+
+        // Fonction pour charger les entreprises partenaires
+        async function loadPartnerEnterprises() {
+            try {
+                const response = await fetch('/data/entreprises.json');
+                const data = await response.json();
+                
+                // Gérer différentes structures de données
+                if (Array.isArray(data.entreprises)) {
+                    PARTNER_ENTERPRISES = data.entreprises;
+                } else if (Array.isArray(data)) {
+                    PARTNER_ENTERPRISES = data;
+                } else {
+                    PARTNER_ENTERPRISES = [];
+                }
+                
+                // Afficher les entreprises dans la section dédiée
+                const container = document.getElementById('entreprises-container');
+                container.innerHTML = '';
+                
+                if (PARTNER_ENTERPRISES.length === 0) {
+                    container.innerHTML = '<p class="col-span-4 text-center text-gray-500">Aucune entreprise partenaire pour le moment.</p>';
+                    return;
+                }
+                
+                PARTNER_ENTERPRISES.forEach(entreprise => {
+                    const div = document.createElement('div');
+                    div.className = 'bg-white p-6 rounded-xl shadow-sm text-center border border-gray-100 hover:shadow-md transition-shadow';
+                    
+                    if (entreprise.logo) {
+                        div.innerHTML = `
+                            <img src="${entreprise.logo}" alt="${entreprise.name}" class="company-logo-img mx-auto mb-4">
+                            <h3 class="font-semibold">${entreprise.name}</h3>
+                            ${entreprise.description ? `<p class="text-sm text-gray-600 mt-2">${entreprise.description}</p>` : ''}
+                        `;
+                    } else {
+                        div.innerHTML = `
+                            <div class="company-logo">${entreprise.name.substring(0, 2).toUpperCase()}</div>
+                            <h3 class="font-semibold">${entreprise.name}</h3>
+                            ${entreprise.description ? `<p class="text-sm text-gray-600 mt-2">${entreprise.description}</p>` : ''}
+                        `;
+                    }
+                    
+                    container.appendChild(div);
+                });
+                
+                // Mettre à jour la liste des entreprises populaires dans la sidebar
+                const popularContainer = document.getElementById('popular-companies');
+                popularContainer.innerHTML = '';
+                
+                // Afficher les 5 premières entreprises
+                PARTNER_ENTERPRISES.slice(0, 5).forEach(entreprise => {
+                    const li = document.createElement('li');
+                    li.className = 'flex items-center py-2 border-b border-gray-100';
+                    
+                    if (entreprise.logo) {
+                        li.innerHTML = `
+                            <img src="${entreprise.logo}" alt="${entreprise.name}" class="w-8 h-8 rounded-full object-cover mr-3">
+                            <span class="text-gray-700">${entreprise.name}</span>
+                        `;
+                    } else {
+                        li.innerHTML = `
+                            <div class="w-8 h-8 bg-orange-50 rounded-full flex items-center justify-center mr-3">
+                                <span class="text-orange-400 font-bold text-sm">${entreprise.name.substring(0, 1).toUpperCase()}</span>
+                            </div>
+                            <span class="text-gray-700">${entreprise.name}</span>
+                        `;
+                    }
+                    
+                    popularContainer.appendChild(li);
+                });
+                
+            } catch (error) {
+                console.error('Erreur lors du chargement des entreprises partenaires:', error);
+                document.getElementById('entreprises-container').innerHTML = '<p class="col-span-4 text-center text-gray-500">Erreur lors du chargement des entreprises.</p>';
+            }
+        }
+
+        // Fonction pour charger les offres d'emploi depuis le fichier JSON
+        async function loadJobsFromJSON() {
+            try {
+                // Afficher l'indicateur de chargement
+                document.querySelector('.loading').style.display = 'block';
+                document.getElementById('jobs').innerHTML = '';
+                
+                // Récupérer les offres depuis le fichier JSON
+                console.log('Chargement des offres depuis /data/content.json...');
+                const jobsResponse = await fetch('/data/content.json');
+                
+                if (!jobsResponse.ok) {
+                    throw new Error(`Erreur HTTP: ${jobsResponse.status}`);
+                }
+                
+                const jobsData = await jobsResponse.json();
+                console.log('Données brutes reçues:', jobsData);
+                
+                // CORRECTION : Gérer la structure des données de Netlify CMS
+                if (jobsData.content && Array.isArray(jobsData.content)) {
+                    // Structure normale : { content: [...] }
+                    JOBS = jobsData.content;
+                } else if (Array.isArray(jobsData)) {
+                    // Structure alternative : tableau direct
+                    JOBS = jobsData;
+                } else {
+                    // Structure avec entrées individuelles
+                    JOBS = Object.values(jobsData).filter(item => 
+                        item && typeof item === 'object' && item.company
+                    );
+                }
+                
+                console.log(`${JOBS.length} offres d'emploi trouvées`);
+                
+                // S'assurer que chaque offre a un ID et des valeurs par défaut pour les champs optionnels
+                JOBS = JOBS.map((job, index) => {
+                    if (!job.id) {
+                        job.id = 'job-' + (index + 1) + '-' + Date.now();
+                    }
+                    
+                    // S'assurer que les champs optionnels ont des valeurs par défaut
+                    job.title = getFieldValue(job.title, 'Poste à pourvoir');
+                    job.location = getFieldValue(job.location, 'Lieu non spécifié');
+                    job.type = getFieldValue(job.type, 'Type non spécifié');
+                    job.sector = getFieldValue(job.sector, 'Secteur non spécifié');
+                    job.description = getFieldValue(job.description, 'Aucune description disponible.');
+                    job.requirements = getFieldValue(job.requirements, 'Aucune exigence spécifique.');
+                    job.experience = getFieldValue(job.experience, 'Non spécifiée');
+                    job.education = getFieldValue(job.education, 'Non spécifié');
+                    job.salary = getFieldValue(job.salary, 'Non spécifié');
+                    
+                    // S'assurer que les compétences sont un tableau
+                    if (!Array.isArray(job.skills)) {
+                        if (typeof job.skills === 'string') {
+                            job.skills = job.skills.split(',').map(s => s.trim()).filter(s => s);
+                        } else {
+                            job.skills = [];
+                        }
+                    }
+                    
+                    return job;
+                });
+                
+                // Trier les offres par date (les plus récentes en premier)
+                JOBS.sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
+                
+                // Mettre à jour l'état de l'application
+                filteredJobs = [...JOBS];
+                jobsLoaded = true;
+                
+                // Afficher les offres
+                renderJobs(filteredJobs);
+                updatePagination();
+                
+                // Cacher l'indicateur de chargement
+                document.querySelector('.loading').style.display = 'none';
+                
+                console.log(`${JOBS.length} offres d'emploi chargées avec succès`);
+                
+            } catch (error) {
+                console.error('Erreur lors du chargement des offres:', error);
+                
+                // Afficher un message d'erreur modifié
+                document.getElementById('jobs').innerHTML = `
+                    <div class="bg-white rounded-xl p-8 text-center shadow-sm border border-gray-100">
+                        <i class="fas fa-search text-4xl text-gray-300 mb-4"></i>
+                        <h3 class="text-lg font-semibold text-gray-700">Aucune offre disponible</h3>
+                        <p class="text-gray-500 mt-2">Il n'y a actuellement aucune offre d'emploi disponible. Veuillez réessayer plus tard.</p>
+                        <button class="mt-4 px-4 py-2 bg-green-600 text-white rounded-lg text-sm" onclick="loadJobsFromJSON()">
+                            <i class="fas fa-redo mr-2"></i> Réessayer
+                        </button>
+                    </div>
+                `;
+                
+                document.querySelector('.loading').style.display = 'none';
+            }
+        }
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeApp();
+        });
+
+        function initializeApp() {
+            // Initialiser l'année du copyright
+            document.getElementById('year').textContent = new Date().getFullYear();
+            
+            // Charger les paramètres du site
+            loadSettings();
+            
+            // Charger les entreprises partenaires
+            loadPartnerEnterprises();
+            
+            // Charger les offres d'emploi
+            loadJobsFromJSON();
+            
+            // Configurer les événements
+            setupEventListeners();
+            
+            // Configurer le menu mobile
+            setupMobileMenu();
+            
+            // Configurer l'analyseur de CV amélioré
+            setupCVAnalyzer();
+            
+            // Configurer le téléchargement PDF
+            setupPDFUpload();
+            
+            // Initialiser Netlify Identity avec redirection automatique
+            if (window.netlifyIdentity) {
+                window.netlifyIdentity.on("init", user => {
+                    if (!user) {
+                        window.netlifyIdentity.on("login", () => {
+                            document.location.href = "/admin/";
+                        });
+                    } else {
+                        // Si l'utilisateur est déjà connecté, rediriger vers Netlify CMS
+                        document.location.href = "/admin/";
+                    }
+                });
+            }
+        }
+
+        function setupEventListeners() {
+            // Recherche
+            document.getElementById('searchForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                filterJobs();
+            });
+            
+            // Filtres
+            document.getElementById('applyFilters').addEventListener('click', filterJobs);
+            document.getElementById('clearFilters').addEventListener('click', clearFilters);
+            
+            // Pagination
+            document.getElementById('prev').addEventListener('click', function() {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderJobs(filteredJobs);
+                    updatePagination();
+                    window.scrollTo({ top: document.getElementById('offres').offsetTop - 100, behavior: 'smooth' });
+                }
+            });
+            
+            document.getElementById('next').addEventListener('click', function() {
+                const maxPage = Math.ceil(filteredJobs.length / jobsPerPage);
+                if (currentPage < maxPage) {
+                    currentPage++;
+                    renderJobs(filteredJobs);
+                    updatePagination();
+                    window.scrollTo({ top: document.getElementById('offres').offsetTop - 100, behavior: 'smooth' });
+                }
+            });
+            
+            // Suggestions de recherche
+            document.querySelectorAll('.suggestion-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const suggestion = this.getAttribute('data-suggestion');
+                    document.getElementById('q').value = suggestion;
+                    filterJobs();
+                });
+            });
+            
+            // Modales
+            document.getElementById('conditionsLink').addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('conditionsModal').style.display = 'block';
+            });
+            
+            document.getElementById('privacyLink').addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('privacyModal').style.display = 'block';
+            });
+            
+            document.querySelectorAll('.close').forEach(closeBtn => {
+                closeBtn.addEventListener('click', function() {
+                    const modalId = this.getAttribute('data-modal');
+                    document.getElementById(modalId).style.display = 'none';
+                });
+            });
+            
+            // Fermer les modales en cliquant à l'extérieur
+            window.addEventListener('click', function(e) {
+                if (e.target.classList.contains('modal')) {
+                    e.target.style.display = 'none';
+                }
+            });
+        }
+
+        function setupMobileMenu() {
+            const menuBtn = document.getElementById('mobileMenuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            menuBtn.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            // Fermer le menu en cliquant sur un lien
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+        }
+
+        function setupCVAnalyzer() {
+            document.getElementById('submit-cv-info').addEventListener('click', validateCVInfoForm);
+            document.getElementById('analyze-btn').addEventListener('click', analyzeCV);
+            document.getElementById('save-result-btn').addEventListener('click', saveAnalysisResult);
+        }
+
+        function setupPDFUpload() {
+            const pdfInput = document.getElementById('cv-pdf');
+            const pdfUploadContainer = document.getElementById('pdfUploadContainer');
+            const pdfPreview = document.getElementById('pdf-preview');
+            const removePdfBtn = document.getElementById('remove-pdf');
+            
+            // Ouvrir le sélecteur de fichiers en cliquant sur le conteneur
+            pdfUploadContainer.addEventListener('click', function() {
+                pdfInput.click();
+            });
+            
+            // Gérer la sélection de fichier
+            pdfInput.addEventListener('change', function(e) {
+                if (this.files && this.files[0]) {
+                    const file = this.files[0];
+                    
+                    // Vérifier la taille du fichier (max 5MB)
+                    if (file.size > 5 * 1024 * 1024) {
+                        alert('Le fichier est trop volumineux. Taille maximale: 5MB');
+                        this.value = '';
+                        return;
+                    }
+                    
+                    // Afficher le nom du fichier
+                    document.getElementById('pdf-filename').textContent = file.name;
+                    
+                    // Afficher la prévisualisation
+                    pdfPreview.style.display = 'block';
+                    
+                    // Extraire le texte du PDF
+                    extractTextFromPDF(file).then(text => {
+                        document.getElementById('pdf-extracted-text').textContent = text;
+                        document.getElementById('cv-text').value = text;
+                    }).catch(error => {
+                        console.error('Erreur lors de l\'extraction du texte:', error);
+                        document.getElementById('pdf-extracted-text').textContent = 'Impossible d\'extraire le texte de ce PDF. Veuillez coller le texte manuellement.';
+                    });
+                }
+            });
+            
+            // Supprimer le PDF sélectionné
+            removePdfBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                pdfInput.value = '';
+                pdfPreview.style.display = 'none';
+                document.getElementById('cv-text').value = '';
+            });
+        }
+
+        function validateCVInfoForm() {
+            const educationLevel = document.getElementById('education-level').value;
+            const yearsExperience = document.getElementById('years-experience').value;
+            const expertiseDomain = document.getElementById('expertise-domain').value;
+            const languageLevel = document.getElementById('language-level').value;
+            
+            if (!educationLevel) {
+                alert('Veuillez sélectionner votre niveau d\'études.');
+                return;
+            }
+            
+            if (!yearsExperience || yearsExperience < 0) {
+                alert('Veuillez saisir un nombre valide d\'années d\'expérience.');
+                return;
+            }
+            
+            if (!expertiseDomain) {
+                alert('Veuillez sélectionner votre domaine d\'expertise.');
+                return;
+            }
+            
+            if (!languageLevel) {
+                alert('Veuillez sélectionner votre niveau de maîtrise linguistique.');
+                return;
+            }
+            
+            // Enregistrer les informations utilisateur
+            userEducationLevel = educationLevel;
+            userExperienceYears = parseFloat(yearsExperience);
+            
+            // Masquer le formulaire et afficher le contenu d'analyse
+            document.getElementById('cvInfoForm').classList.add('hidden');
+            document.getElementById('cv-analysis-content').classList.remove('hidden');
+        }
+
+        function extractTextFromPDF(file) {
+            return new Promise((resolve, reject) => {
+                const fileReader = new FileReader();
+                
+                fileReader.onload = function() {
+                    const typedarray = new Uint8Array(this.result);
+                    
+                    // Charger le document PDF
+                    pdfjsLib.getDocument(typedarray).promise.then(pdf => {
+                        let text = '';
+                        const numPages = pdf.numPages;
+                        
+                        // Extraire le texte de chaque page
+                        const extractPage = (pageNum) => {
+                            return pdf.getPage(pageNum).then(page => {
+                                return page.getTextContent();
+                            }).then(textContent => {
+                                // Nouvelle méthode: préserver les sauts de ligne
+                                let lastY, line = '';
+                                let pageText = [];
+                                
+                                // Trier les items par position verticale (du haut vers le bas)
+                                textContent.items.sort((a, b) => {
+                                    // Tri par Y décroissant pour avoir le haut de page en premier
+                                    return b.transform[5] - a.transform[5];
+                                });
+                                
+                                for (let item of textContent.items) {
+                                    if (lastY === undefined) {
+                                        lastY = item.transform[5];
+                                        line = item.str;
+                                    } else if (lastY !== item.transform[5]) {
+                                        // Nouvelle ligne
+                                        pageText.push(line);
+                                        line = item.str;
+                                        lastY = item.transform[5];
+                                    } else {
+                                        // Même ligne
+                                        line += ' ' + item.str;
+                                    }
+                                }
+                                // Ajouter la dernière ligne
+                                pageText.push(line);
+                                
+                                text += pageText.join('\n') + '\n\n';
+                                
+                                if (pageNum < numPages) {
+                                    return extractPage(pageNum + 1);
+                                } else {
+                                    return text;
+                                }
+                            }).catch(error => {
+                                reject(error);
+                            });
+                        };
+                        
+                        // Commencer l'extraction à partir de la première page
+                        extractPage(1).then(resolve).catch(reject);
+                    }).catch(reject);
+                };
+                
+                fileReader.readAsArrayBuffer(file);
+            });
+        }
+
+        function filterJobs() {
+            if (!jobsLoaded) {
+                alert('Les offres d\'emploi sont en cours de chargement. Veuillez patienter.');
+                return;
+            }
+            
+            // Afficher l'indicateur de chargement
+            document.querySelector('.loading').style.display = 'block';
+            document.getElementById('jobs').innerHTML = '';
+            
+            // Simuler un délai de chargement pour une meilleure UX
+            setTimeout(() => {
+                const searchTerm = document.getElementById('q').value.trim().toLowerCase();
+                const locationTerm = document.getElementById('location').value.trim().toLowerCase();
+                const contractFilter = document.getElementById('contract').value;
+                const sectorFilter = document.getElementById('sector').value;
+                const dateFilter = document.getElementById('datePosted').value;
+                
+                // Mettre à jour les filtres actifs
+                activeFilters = {
+                    search: searchTerm,
+                    location: locationTerm,
+                    contract: contractFilter,
+                    sector: sectorFilter,
+                    date: dateFilter
+                };
+                
+                // Filtrer les emplois
+                filteredJobs = JOBS.filter(job => {
+                    // Filtre par terme de recherche
+                    if (searchTerm && !(
+                        job.title.toLowerCase().includes(searchTerm) || 
+                        job.company.toLowerCase().includes(searchTerm) ||
+                        (job.description && job.description.toLowerCase().includes(searchTerm)) ||
+                        (job.requirements && job.requirements.toLowerCase().includes(searchTerm)) ||
+                        (Array.isArray(job.skills) && job.skills.some(skill => 
+                            skill.toLowerCase().includes(searchTerm)
+                        ))
+                    )) {
+                        return false;
+                    }
+                    
+                    // Filtre par localisation
+                    if (locationTerm && job.location && !job.location.toLowerCase().includes(locationTerm)) {
+                        return false;
+                    }
+                    
+                    // Filtre par type de contrat
+                    if (contractFilter && job.type !== contractFilter) {
+                        return false;
+                    }
+                    
+                    // Filtre par secteur
+                    if (sectorFilter && job.sector !== sectorFilter) {
+                        return false;
+                    }
+                    
+                    // Filtre par date
+                    if (dateFilter) {
+                        const jobDate = new Date(job.date);
+                        if (isNaN(jobDate.getTime())) return false;
+                        
+                        const daysDiff = Math.floor((new Date() - jobDate) / (1000 * 60 * 60 * 24));
+                        if (daysDiff > parseInt(dateFilter)) {
+                            return false;
+                        }
+                    }
+                    
+                    return true;
+                });
+                
+                // Réinitialiser à la première page
+                currentPage = 1;
+                
+                // Afficher les résultats
+                renderJobs(filteredJobs);
+                updatePagination();
+                
+                // Mettre à jour l'indicateur de filtres actifs
+                updateFilterIndicator();
+                
+                // Cacher l'indicateur de chargement
+                document.querySelector('.loading').style.display = 'none';
+            }, 500);
+        }
+
+        function clearFilters() {
+            document.getElementById('q').value = '';
+            document.getElementById('location').value = '';
+            document.getElementById('contract').value = '';
+            document.getElementById('sector').value = '';
+            document.getElementById('datePosted').value = '';
+            
+            activeFilters = {};
+            filteredJobs = [...JOBS];
+            currentPage = 1;
+            
+            renderJobs(filteredJobs);
+            updatePagination();
+            updateFilterIndicator();
+        }
+
+        function updateFilterIndicator() {
+            const indicator = document.getElementById('filterIndicator');
+            const activeFiltersCount = Object.values(activeFilters).filter(val => val !== '').length;
+            
+            if (activeFiltersCount > 0) {
+                indicator.classList.remove('hidden');
+                indicator.textContent = `${activeFiltersCount} filtre(s) actif(s)`;
+            } else {
+                indicator.classList.add('hidden');
+            }
+        }
+
+        function renderJobs(jobs) {
+            const container = document.getElementById('jobs');
+            container.innerHTML = '';
+            
+            const startIndex = (currentPage - 1) * jobsPerPage;
+            const endIndex = startIndex + jobsPerPage;
+            const jobsToRender = jobs.slice(startIndex, endIndex);
+            
+            document.getElementById('count').textContent = jobs.length;
+            
+            if (jobsToRender.length === 0) {
+                container.innerHTML = `
+                    <div class="bg-white rounded-xl p-8 text-center shadow-sm border border-gray-100">
+                        <i class="fas fa-search text-4xl text-gray-300 mb-4"></i>
+                        <h3 class="text-lg font-semibold text-gray-700">Aucune offre trouvée</h3>
+                        <p class="text-gray-500 mt-2">Essayez de modifier vos critères de recherche ou <a href="#" id="clearSearch" class="text-green-600 hover:underline">réinitialiser les filtres</a>.</p>
+                    </div>
+                `;
+                
+                document.getElementById('clearSearch').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    clearFilters();
+                });
+                
+                return;
+            }
+            
+            jobsToRender.forEach(job => {
+                const contactInfo = getContactInfo(job);
+                const whatsappNumber = contactInfo.whatsapp.replace(/\D/g, '');
+                const whatsappUrl = `https://wa.me/${whatsappNumber}?text=Je%20suis%20intéressé%20par%20l'offre%20${encodeURIComponent(job.title || '')}%20de%20${encodeURIComponent(job.company || '')}`;
+                const emailUrl = `mailto:${contactInfo.email}?subject=Candidature%20pour%20le%20poste%20${encodeURIComponent(job.title || '')}&body=Je%20souhaite%20postuler%20pour%20le%20poste%20de%20${encodeURIComponent(job.title || '')}%20chez%20${encodeURIComponent(job.company || '')}`;
+                
+                const card = document.createElement('article');
+                card.className = 'card bg-white rounded-xl p-5 shadow-sm border border-gray-100 relative';
+                card.setAttribute('data-job-id', job.id);
+                
+                // Vérifier s'il y a un score enregistré pour cette offre
+                const savedScores = JSON.parse(localStorage.getItem('cvScores') || '{}');
+                const jobScore = savedScores[job.id];
+                
+                // Formater les dates
+                let formattedDate = 'Date non spécifiée';
+                let formattedExpirationDate = 'Date non spécifiée';
+                
+                try {
+                    if (job.date) {
+                        formattedDate = new Date(job.date).toLocaleDateString('fr-FR', {
+                            day: 'numeric',
+                            month: 'long',
+                            year: 'numeric'
+                        });
+                    }
+                    
+                    if (job.expirationDate) {
+                        formattedExpirationDate = new Date(job.expirationDate).toLocaleDateString('fr-FR', {
+                            day: 'numeric',
+                            month: 'long',
+                            year: 'numeric'
+                        });
+                    }
+                } catch (e) {
+                    console.error('Erreur de formatage de date:', e);
+                }
+                
+                card.innerHTML = `
+                    ${jobScore ? `<div class="job-match-badge"><i class="fas fa-chart-line mr-1"></i> ${jobScore}%</div>` : ''}
+                    <div class="flex flex-col md:flex-row gap-5">
+                        <div class="flex-1">
+                            <h4 class="text-lg font-semibold text-gray-800">${job.title}</h4>
+                            <div class="flex items-center mt-2 text-gray-600">
+                                <i class="fas fa-building mr-2 text-sm"></i>
+                                <span class="text-sm">${job.company}</span>
+                            </div>
+                            
+                            <div class="flex flex-wrap mt-4 gap-2">
+                                <span class="tag tag-location">
+                                    <i class="fas fa-map-marker-alt mr-1"></i> ${job.location}
+                                </span>
+                                <span class="tag tag-contract">${job.type}</span>
+                                <span class="tag tag-sector">${job.sector}</span>
+                                <span class="tag tag-date">
+                                    <i class="far fa-calendar-alt mr-1"></i> Publié: ${formattedDate}
+                                </span>
+                                <span class="tag tag-date">
+                                    <i class="fas fa-hourglass-end mr-1"></i> Expire: ${formattedExpirationDate}
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="md:w-1/3 flex flex-col justify-between">
+                            <div class="mt-4 flex flex-col sm:flex-row gap-2">
+                                <button class="view-btn px-4 py-2 border border-green-600 text-green-600 rounded-lg text-sm font-medium hover:bg-green-50 transition-colors flex items-center justify-center">
+                                    <i class="fas fa-eye mr-2"></i> Voir détails
+                                </button>
+                                <button class="analyze-cv-btn px-4 py-2 border border-green-600 text-green-600 rounded-lg text-sm font-medium hover:bg-green-50 transition-colors flex items-center justify-center" data-job-id="${job.id}">
+                                    <i class="fas fa-chart-line mr-2"></i> Analyser CV
+                                </button>
+                                <a href="${whatsappUrl}" 
+                                   class="px-4 py-2 bg-green-600 text-white rounded-lg text-sm font-medium text-center flex items-center justify-center">
+                                    <i class="fab fa-whatsapp mr-2"></i> WhatsApp
+                                </a>
+                                <a href="${emailUrl}" 
+                                   class="px-4 py-2 bg-orange-500 text-white rounded-lg text-sm font-medium text-center flex items-center justify-center">
+                                    <i class="fas fa-envelope mr-2"></i> Email
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                // Ajouter l'événement pour le bouton "Voir détails"
+                const viewBtn = card.querySelector('.view-btn');
+                viewBtn.addEventListener('click', () => showJobDetails(job));
+                
+                // Ajouter l'événement pour le bouton "Analyser CV"
+                const analyzeBtn = card.querySelector('.analyze-cv-btn');
+                analyzeBtn.addEventListener('click', function() {
+                    currentJobIdForAnalysis = this.getAttribute('data-job-id');
+                    const jobData = JOBS.find(j => j.id == currentJobIdForAnalysis);
+                    if (jobData) {
+                        // Inclure les compétences dans l'analyse
+                        const skillsText = Array.isArray(jobData.skills) ? jobData.skills.join(', ') : '';
+                        document.getElementById('job-desc').value = (jobData.description || '') + "\n\nCompétences requises: " + (jobData.requirements || '') + "\n\nCompétences: " + skillsText;
+                        
+                        // Afficher la section d'analyse de CV
+                        document.getElementById('analyse-cv').classList.remove('hidden');
+                        
+                        // Réinitialiser et afficher le formulaire d'informations
+                        document.getElementById('cvInfoForm').classList.remove('hidden');
+                        document.getElementById('cv-analysis-content').classList.add('hidden');
+                        document.getElementById('analyzer-result').classList.add('hidden');
+                        
+                        document.getElementById('analyse-cv').scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+                
+                container.appendChild(card);
+            });
+        }
+
+        function showJobDetails(job) {
+            const contactInfo = getContactInfo(job);
+            const whatsappNumber = contactInfo.whatsapp.replace(/\D/g, '');
+            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=Je%20suis%20intéressé%20par%20l'offre%20${encodeURIComponent(job.title || '')}%20de%20${encodeURIComponent(job.company || '')}`;
+            const emailUrl = `mailto:${contactInfo.email}?subject=Candidature%20pour%20le%20poste%20${encodeURIComponent(job.title || '')}&body=Je%20souhaite%20postuler%20pour%20le%20poste%20de%20${encodeURIComponent(job.title || '')}%20chez%20${encodeURIComponent(job.company || '')}`;
+            
+            // Formater les dates
+            let formattedDate = 'Date non spécifiée';
+            let formattedExpirationDate = 'Date non spécifiée';
+            
+            try {
+                if (job.date) {
+                    formattedDate = new Date(job.date).toLocaleDateString('fr-FR', {
+                        day: 'numeric',
+                        month: 'long',
+                        year: 'numeric'
+                    });
+                }
+                
+                if (job.expirationDate) {
+                    formattedExpirationDate = new Date(job.expirationDate).toLocaleDateString('fr-FR', {
+                        day: 'numeric',
+                        month: 'long',
+                        year: 'numeric'
+                    });
+                }
+            } catch (e) {
+                console.error('Erreur de formatage de date:', e);
+            }
+            
+            // Vérifier s'il y a un score enregistré pour cette offre
+            const savedScores = JSON.parse(localStorage.getItem('cvScores') || '{}');
+            const jobScore = savedScores[job.id];
+            
+            // Créer le contenu du modal de détails
+            const modalContent = `
+                <div class="modal-content" style="max-height: 85vh; overflow-y: auto;">
+                    <span class="close">&times;</span>
+                    <div class="mb-6">
+                        <h2 class="text-2xl font-bold text-gray-800">${job.title}</h2>
+                        <div class="flex items-center mt-2 text-gray-600">
+                            <i class="fas fa-building mr-2"></i>
+                            <span>${job.company}</span>
+                        </div>
+                        ${jobScore ? `<div class="mt-2 inline-block bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm"><i class="fas fa-chart-line mr-1"></i> Votre score de correspondance: ${jobScore}%</div>` : ''}
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="text-sm text-gray-500">Lieu</div>
+                            <div class="font-medium"><i class="fas fa-map-marker-alt mr-2 text-green-600"></i> ${job.location}</div>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="text-sm text-gray-500">Type de contrat</div>
+                            <div class="font-medium"><i class="fas fa-file-contract mr-2 text-green-600"></i> ${job.type}</div>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="text-sm text-gray-500">Secteur</div>
+                            <div class="font-medium"><i class="fas fa-industry mr-2 text-green-600"></i> ${job.sector}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="text-sm text-gray-500">Date de publication</div>
+                            <div class="font-medium"><i class="far fa-calendar-alt mr-2 text-green-600"></i> ${formattedDate}</div>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="text-sm text-gray-500">Date d'expiration</div>
+                            <div class="font-medium"><i class="fas fa-hourglass-end mr-2 text-green-600"></i> ${formattedExpirationDate}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold mb-3">Description du poste</h3>
+                        <p class="text-gray-700">${job.description}</p>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold mb-3">Profil recherché</h3>
+                        <ul class="list-disc pl-5 text-gray-700 space-y-2">
+                            <li>Niveau d'éducation: ${job.education}</li>
+                            <li>Expérience: ${job.experience}</li>
+                            <li>Compétences: ${Array.isArray(job.skills) ? job.skills.join(', ') : (job.skills || 'Non spécifiées')}</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="flex flex-col sm:flex-row gap-3 pt-4 border-t border-gray-200">
+                        <button class="px-6 py-3 border border-green-600 text-green-600 rounded-lg font-medium hover:bg-green-50 transition-colors flex items-center justify-center" id="analyzeFromModal" data-job-id="${job.id}">
+                            <i class="fas fa-chart-line mr-2 text-lg"></i> Analyser mon CV
+                        </button>
+                        <a href="${whatsappUrl}" 
+                           class="px-6 py-3 bg-green-600 text-white rounded-lg font-medium text-center flex items-center justify-center">
+                            <i class="fab fa-whatsapp mr-2 text-lg"></i> Postuler via WhatsApp
+                        </a>
+                        <a href="${emailUrl}" 
+                           class="px-6 py-3 bg-orange-500 text-white rounded-lg font-medium text-center flex items-center justify-center">
+                            <i class="fas fa-envelope mr-2 text-lg"></i> Postuler par email
+                        </a>
+                        <button class="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors" id="closeDetails">
+                            Fermer
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            // Créer et afficher le modal
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.innerHTML = modalContent;
+            document.body.appendChild(modal);
+            modal.style.display = 'block';
+            
+            // Configurer les événements de fermeture
+            const closeBtn = modal.querySelector('.close');
+            closeBtn.addEventListener('click', () => {
+                document.body.removeChild(modal);
+            });
+            
+            const closeDetailsBtn = modal.querySelector('#closeDetails');
+            closeDetailsBtn.addEventListener('click', () => {
+                document.body.removeChild(modal);
+            });
+            
+            // Configurer le bouton d'analyse depuis le modal
+            const analyzeFromModalBtn = modal.querySelector('#analyzeFromModal');
+            analyzeFromModalBtn.addEventListener('click', function() {
+                currentJobIdForAnalysis = this.getAttribute('data-job-id');
+                const jobData = JOBS.find(j => j.id == currentJobIdForAnalysis);
+                if (jobData) {
+                    // Inclure les compétences dans l'analyse
+                    const skillsText = Array.isArray(jobData.skills) ? jobData.skills.join(', ') : '';
+                    document.getElementById('job-desc').value = (jobData.description || '') + "\n\nCompétences requises: " + (jobData.requirements || '') + "\n\nCompétences: " + skillsText;
+                    
+                    // Afficher la section d'analyse de CV
+                    document.getElementById('analyse-cv').classList.remove('hidden');
+                    
+                    // Réinitialiser et afficher le formulaire d'informations
+                    document.getElementById('cvInfoForm').classList.remove('hidden');
+                    document.getElementById('cv-analysis-content').classList.add('hidden');
+                    document.getElementById('analyzer-result').classList.add('hidden');
+                    
+                    document.body.removeChild(modal);
+                    document.getElementById('analyse-cv').scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+            
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    document.body.removeChild(modal);
+                }
+            });
+        }
+
+        function updatePagination() {
+            const totalPages = Math.ceil(filteredJobs.length / jobsPerPage);
+            document.getElementById('paginationInfo').textContent = `Page ${currentPage} sur ${totalPages}`;
+            
+            document.getElementById('prev').disabled = currentPage === 1;
+            document.getElementById('next').disabled = currentPage === totalPages || totalPages === 0;
+        }
+
+        // ==============================================
+        // ALGORITHME D'ANALYSE DE CV AMÉLIORÉ
+        // ==============================================
+
+        function analyzeCV() {
+            let cvText = document.getElementById('cv-text').value;
+            const jobText = document.getElementById('job-desc').value;
+            
+            if (!cvText || !jobText) {
+                alert('Veuillez remplir les deux champs pour analyser votre CV.');
+                return;
+            }
+            
+            // Afficher l'indicateur de chargement
+            document.getElementById('analyzer-result').classList.add('hidden');
+            document.getElementById('analyze-btn').disabled = true;
+            document.getElementById('analyze-btn').textContent = 'Analyse en cours...';
+            
+            // Simuler un délai de traitement pour l'UX
+            setTimeout(() => {
+                // Analyser le CV avec l'algorithme amélioré
+                const analysis = advancedCVAnalysis(cvText, jobText);
+                currentAnalysisResult = analysis;
+                
+                // Afficher les résultats
+                displayAdvancedResults(analysis);
+                
+                // Réactiver le bouton
+                document.getElementById('analyze-btn').disabled = false;
+                document.getElementById('analyze-btn').textContent = 'Analyser la correspondance';
+            }, 2000);
+        }
+
+        function advancedCVAnalysis(cvText, jobText) {
+            // Nettoyer et prétraiter les textes
+            const cleanCV = preprocessText(cvText);
+            const cleanJob = preprocessText(jobText);
+            
+            // 1. Analyse d'éducation (20%)
+            const educationAnalysis = analyzeEducation(jobText);
+            
+            // 2. Analyse d'expérience (20%)
+            const experienceAnalysis = analyzeExperience(jobText);
+            
+            // 3. Analyse des compétences (30%)
+            const skillsAnalysis = analyzeSkills(cleanCV, cleanJob);
+            
+            // 4. Analyse du domaine d'expertise (15%)
+            const domainAnalysis = analyzeDomain(cleanCV, cleanJob);
+            
+            // 5. Analyse des mots-clés (15%)
+            const keywordAnalysis = analyzeKeywords(cleanCV, cleanJob);
+            
+            // Calculer le score final pondéré
+            const finalScore = Math.round(
+                educationAnalysis.score * 0.2 +
+                experienceAnalysis.score * 0.2 +
+                skillsAnalysis.score * 0.3 +
+                domainAnalysis.score * 0.15 +
+                keywordAnalysis.score * 0.15
+            );
+            
+            // Générer les recommandations
+            const recommendations = generateRecommendations(
+                educationAnalysis, 
+                experienceAnalysis, 
+                skillsAnalysis, 
+                domainAnalysis, 
+                keywordAnalysis
+            );
+            
+            return {
+                score: finalScore,
+                education: educationAnalysis,
+                experience: experienceAnalysis,
+                skills: skillsAnalysis,
+                domain: domainAnalysis,
+                keywords: keywordAnalysis,
+                recommendations: recommendations
+            };
+        }
+
+        function analyzeEducation(jobText) {
+            const jobEducation = extractEducationLevelFromJob(jobText);
+            const userEducation = userEducationLevel;
+            
+            let score = 0;
+            let feedback = "";
+            
+            if (jobEducation === "Niveau non spécifié") {
+                score = 100;
+                feedback = "Le poste ne spécifie pas de niveau d'éducation requis.";
+            } else {
+                const userLevel = EDUCATION_LEVELS[userEducation] || 0;
+                const jobLevel = EDUCATION_LEVELS[jobEducation] || 0;
+                
+                if (userLevel >= jobLevel) {
+                    score = 100;
+                    feedback = `Votre niveau (${userEducation}) correspond ou dépasse le niveau requis (${jobEducation}).`;
+                } else {
+                    score = Math.max(0, Math.round((userLevel / jobLevel) * 100));
+                    feedback = `Votre niveau (${userEducation}) est inférieur au niveau requis (${jobEducation}).`;
+                }
+            }
+            
+            return {
+                score: score,
+                feedback: feedback,
+                userLevel: userEducation,
+                requiredLevel: jobEducation
+            };
+        }
+
+        function analyzeExperience(jobText) {
+            const jobExperience = extractExperienceFromJob(jobText);
+            const userExperience = userExperienceYears;
+            
+            let score = 0;
+            let feedback = "";
+            
+            if (jobExperience === 0) {
+                score = 100;
+                feedback = "Le poste ne requiert pas d'expérience spécifique.";
+            } else if (userExperience >= jobExperience) {
+                score = 100;
+                feedback = `Votre expérience (${userExperience} ans) correspond ou dépasse l'expérience requise (${jobExperience} ans).`;
+            } else {
+                score = Math.round((userExperience / jobExperience) * 100);
+                feedback = `Votre expérience (${userExperience} ans) est inférieure à l'expérience requise (${jobExperience} ans).`;
+            }
+            
+            return {
+                score: score,
+                feedback: feedback,
+                userExperience: userExperience,
+                requiredExperience: jobExperience
+            };
+        }
+
+        function analyzeSkills(cvText, jobText) {
+            // Extraire les compétences techniques du poste
+            const jobSkills = extractTechnicalSkills(jobText);
+            
+            if (jobSkills.length === 0) {
+                return {
+                    score: 100,
+                    feedback: "Aucune compétence technique spécifique n'est requise pour ce poste.",
+                    matchedSkills: [],
+                    missingSkills: []
+                };
+            }
+            
+            // Vérifier la présence des compétences dans le CV
+            const matchedSkills = [];
+            const missingSkills = [];
+            
+            jobSkills.forEach(skill => {
+                if (cvText.includes(skill.toLowerCase())) {
+                    matchedSkills.push(skill);
+                } else {
+                    missingSkills.push(skill);
+                }
+            });
+            
+            const score = Math.round((matchedSkills.length / jobSkills.length) * 100);
+            let feedback = "";
+            
+            if (score === 100) {
+                feedback = "Toutes les compétences techniques requises sont présentes dans votre CV.";
+            } else if (score >= 70) {
+                feedback = "La plupart des compétences techniques requises sont présentes dans votre CV.";
+            } else if (score >= 40) {
+                feedback = "Certaines compétences techniques requises sont manquantes dans votre CV.";
+            } else {
+                feedback = "La plupart des compétences techniques requises sont manquantes dans votre CV.";
+            }
+            
+            return {
+                score: score,
+                feedback: feedback,
+                matchedSkills: matchedSkills,
+                missingSkills: missingSkills,
+                totalSkills: jobSkills.length
+            };
+        }
+
+        function analyzeDomain(cvText, jobText) {
+            const userDomain = document.getElementById('expertise-domain').value;
+            const jobDomain = extractDomainFromJob(jobText);
+            
+            let score = 0;
+            let feedback = "";
+            
+            if (!jobDomain) {
+                score = 100;
+                feedback = "Le domaine d'expertise n'est pas spécifié dans l'offre.";
+            } else if (userDomain === jobDomain) {
+                score = 100;
+                feedback = `Votre domaine d'expertise (${userDomain}) correspond parfaitement au poste.`;
+            } else {
+                // Vérifier la similarité entre les domaines
+                const domainKeywords = EXPERTISE_DOMAINS[userDomain] || [];
+                let keywordMatches = 0;
+                
+                domainKeywords.forEach(keyword => {
+                    if (jobText.toLowerCase().includes(keyword)) {
+                        keywordMatches++;
+                    }
+                });
+                
+                score = Math.round((keywordMatches / Math.max(domainKeywords.length, 1)) * 100);
+                feedback = `Votre domaine d'expertise (${userDomain}) ne correspond pas exactement au domaine du poste (${jobDomain}).`;
+            }
+            
+            return {
+                score: score,
+                feedback: feedback,
+                userDomain: userDomain,
+                jobDomain: jobDomain
+            };
+        }
+
+        function analyzeKeywords(cvText, jobText) {
+            // Extraire les mots-clés importants de l'offre
+            const jobKeywords = extractImportantKeywords(jobText);
+            
+            if (jobKeywords.length === 0) {
+                return {
+                    score: 100,
+                    feedback: "Aucun mot-clé important n'a été identifié dans l'offre.",
+                    matchedKeywords: [],
+                    partialKeywords: [],
+                    missingKeywords: []
+                };
+            }
+            
+            // Analyser la correspondance des mots-clés
+            const matchedKeywords = [];
+            const partialKeywords = [];
+            const missingKeywords = [];
+            
+            jobKeywords.forEach(keyword => {
+                const keywordLower = keyword.toLowerCase();
+                
+                if (cvText.includes(keywordLower)) {
+                    matchedKeywords.push(keyword);
+                } else {
+                    // Vérifier les correspondances partielles (mots composés, synonymes)
+                    const partialMatch = findPartialMatch(cvText, keyword);
+                    if (partialMatch) {
+                        partialKeywords.push({ original: keyword, match: partialMatch });
+                    } else {
+                        missingKeywords.push(keyword);
+                    }
+                }
+            });
+            
+            const baseScore = (matchedKeywords.length / jobKeywords.length) * 100;
+            const partialBonus = (partialKeywords.length / jobKeywords.length) * 30; // Bonus pour correspondances partielles
+            const score = Math.min(100, Math.round(baseScore + partialBonus));
+            
+            let feedback = "";
+            if (score === 100) {
+                feedback = "Tous les mots-clés importants sont présents dans votre CV.";
+            } else if (score >= 70) {
+                feedback = "La plupart des mots-clés importants sont présentes dans votre CV.";
+            } else if (score >= 40) {
+                feedback = "Certains mots-clés importants sont manquants dans votre CV.";
+            } else {
+                feedback = "La plupart des mots-clés importants sont manquants dans votre CV.";
+            }
+            
+            return {
+                score: score,
+                feedback: feedback,
+                matchedKeywords: matchedKeywords,
+                partialKeywords: partialKeywords,
+                missingKeywords: missingKeywords
+            };
+        }
+
+        function extractTechnicalSkills(text) {
+            // Mots-clés techniques courants
+            const technicalKeywords = [
+                "javascript", "python", "java", "html", "css", "react", "angular", "vue", "node", "php",
+                "sql", "mysql", "mongodb", "postgresql", "oracle", "aws", "azure", "docker", "kubernetes",
+                "git", "jenkins", "agile", "scrum", "ux", "ui", "photoshop", "illustrator", "figma",
+                "word", "excel", "powerpoint", "outlook", "project", "jira", "confluence", "salesforce",
+                "marketing digital", "seo", "sea", "analyse de données", "statistiques", "machine learning",
+                "réseaux", "sécurité", "cloud", "devops", "api", "microservices", "linux", "windows"
+            ];
+            
+            const foundSkills = [];
+            const cleanText = text.toLowerCase();
+            
+            technicalKeywords.forEach(skill => {
+                if (cleanText.includes(skill)) {
+                    foundSkills.push(skill);
+                }
+            });
+            
+            return foundSkills;
+        }
+
+        function extractDomainFromJob(jobText) {
+            const domains = Object.keys(EXPERTISE_DOMAINS);
+            const cleanText = jobText.toLowerCase();
+            
+            for (const domain of domains) {
+                if (cleanText.includes(domain.toLowerCase())) {
+                    return domain;
+                }
+                
+                // Vérifier les mots-clés du domaine
+                const keywords = EXPERTISE_DOMAINS[domain];
+                for (const keyword of keywords) {
+                    if (cleanText.includes(keyword)) {
+                        return domain;
+                    }
+                }
+            }
+            
+            return null;
+        }
+
+        function findPartialMatch(cvText, keyword) {
+            const words = keyword.split(' ');
+            if (words.length <= 1) return null;
+            
+            // Vérifier si au moins la moitié des mots sont présents
+            let matches = 0;
+            words.forEach(word => {
+                if (cvText.includes(word.toLowerCase())) {
+                    matches++;
+                }
+            });
+            
+            if (matches >= Math.ceil(words.length / 2)) {
+                return words.filter(word => cvText.includes(word.toLowerCase())).join(' ');
+            }
+            
+            return null;
+        }
+
+        function generateRecommendations(education, experience, skills, domain, keywords) {
+            const recommendations = [];
+            
+            // Recommandations sur l'éducation
+            if (education.score < 80) {
+                recommendations.push({
+                    type: "warning",
+                    text: `Votre niveau d'éducation (${education.userLevel}) est inférieur au niveau requis (${education.requiredLevel}). Mettez en avant vos compétences pratiques et votre expérience.`
+                });
+            }
+            
+            // Recommandations sur l'expérience
+            if (experience.score < 80) {
+                recommendations.push({
+                    type: "warning",
+                    text: `Votre expérience (${experience.userExperience} ans) est inférieure à l'expérience requise (${experience.requiredExperience} ans). Valorisez vos réalisations et compétences transférables.`
+                });
+            }
+            
+            // Recommandations sur les compétences
+            if (skills.score < 70) {
+                if (skills.missingSkills.length > 0) {
+                    recommendations.push({
+                        type: "critical",
+                        text: `Ajoutez les compétences suivantes à votre CV: ${skills.missingSkills.join(', ')}.`
+                    });
+                }
+            }
+            
+            // Recommandations sur le domaine
+            if (domain.score < 70 && domain.userDomain && domain.jobDomain) {
+                recommendations.push({
+                    type: "warning",
+                    text: `Votre domaine d'expertise (${domain.userDomain}) ne correspond pas parfaitement au domaine du poste (${domain.jobDomain}). Mettez en avant vos compétences transversales.`
+                });
+            }
+            
+            // Recommandations sur les mots-clés
+            if (keywords.score < 70) {
+                if (keywords.missingKeywords.length > 0) {
+                    recommendations.push({
+                        type: "critical",
+                        text: `Intégrez les mots-clés suivants dans votre CV: ${keywords.missingKeywords.slice(0, 5).join(', ')}.`
+                    });
+                }
+            }
+            
+            // Recommandations générales
+            if (recommendations.length === 0) {
+                recommendations.push({
+                    type: "success",
+                    text: "Votre CV est bien aligné avec les exigences du poste. Personnalisez votre lettre de motivation pour renforcer votre candidature."
+                });
+            } else {
+                recommendations.push({
+                    type: "success",
+                    text: "Personnalisez votre CV pour chaque candidature en vous basant sur l'analyse ci-dessus."
+                });
+            }
+            
+            return recommendations;
+        }
+
+        function displayAdvancedResults(analysis) {
+            // Mettre à jour le score principal
+            document.querySelector('.circle-value').textContent = `${analysis.score}%`;
+            document.querySelector('.circle').style.strokeDasharray = `${analysis.score}, 100`;
+            
+            // Mettre à jour l'interprétation du score
+            const interpretation = document.getElementById('score-interpretation');
+            if (analysis.score >= 85) {
+                interpretation.textContent = "Excellente correspondance! Votre CV est très bien aligné avec le poste.";
+                interpretation.className = "text-green-600 mt-2";
+            } else if (analysis.score >= 70) {
+                interpretation.textContent = "Bonne correspondance. Votre CV répond à la plupart des exigences du poste.";
+                interpretation.className = "text-green-500 mt-2";
+            } else if (analysis.score >= 50) {
+                interpretation.textContent = "Correspondance modérée. Certains ajustements sont recommandés.";
+                interpretation.className = "text-yellow-600 mt-2";
+            } else {
+                interpretation.textContent = "Correspondance faible. Des améliorations significatives sont nécessaires.";
+                interpretation.className = "text-red-600 mt-2";
+            }
+            
+            // Mettre à jour les scores détaillés
+            updateAnalysisCard('education', analysis.education);
+            updateAnalysisCard('experience', analysis.experience);
+            updateAnalysisCard('skills', analysis.skills);
+            updateAnalysisCard('domain', analysis.domain);
+            
+            // Mettre à jour les mots-clés
+            displayKeywords(analysis.keywords);
+            
+            // Mettre à jour les recommandations
+            displayRecommendations(analysis.recommendations);
+            
+            // Afficher les résultats
+            document.getElementById('analyzer-result').classList.remove('hidden');
+            
+            // Scroll to results
+            document.getElementById('analyzer-result').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function updateAnalysisCard(type, analysis) {
+            const card = document.getElementById(`${type}-card`);
+            const matchElement = document.getElementById(`${type}-match`);
+            const barElement = document.getElementById(`${type}-bar`);
+            const feedbackElement = document.getElementById(`${type}-feedback`);
+            
+            // Mettre à jour le score
+            matchElement.textContent = `${analysis.score}%`;
+            
+            // Mettre à jour la barre de progression
+            barElement.style.width = `${analysis.score}%`;
+            
+            // Mettre à jour le feedback
+            feedbackElement.textContent = analysis.feedback;
+            
+            // Mettre à jour la couleur en fonction du score
+            if (analysis.score >= 80) {
+                matchElement.className = "match-level match-high";
+                barElement.className = "skill-fill skill-match";
+            } else if (analysis.score >= 60) {
+                matchElement.className = "match-level match-medium";
+                barElement.className = "skill-fill skill-partial";
+            } else {
+                matchElement.className = "match-level match-low";
+                barElement.className = "skill-fill skill-missing";
+            }
+        }
+
+        function displayKeywords(keywordAnalysis) {
+            const matchedContainer = document.getElementById('matched-keywords');
+            const partialContainer = document.getElementById('partial-keywords');
+            const missingContainer = document.getElementById('missing-keywords');
+            
+            // Afficher les mots-clés correspondants
+            matchedContainer.innerHTML = '';
+            keywordAnalysis.matchedKeywords.forEach(keyword => {
+                const span = document.createElement('span');
+                span.className = 'keyword-item keyword-match';
+                span.textContent = keyword;
+                matchedContainer.appendChild(span);
+            });
+            
+            if (keywordAnalysis.matchedKeywords.length === 0) {
+                matchedContainer.innerHTML = '<span class="text-gray-500">Aucun mot-clé correspondant</span>';
+            }
+            
+            // Afficher les mots-clés partiellement correspondants
+            partialContainer.innerHTML = '';
+            keywordAnalysis.partialKeywords.forEach(item => {
+                const span = document.createElement('span');
+                span.className = 'keyword-item keyword-partial';
+                span.textContent = `${item.original} → ${item.match}`;
+                partialContainer.appendChild(span);
+            });
+            
+            if (keywordAnalysis.partialKeywords.length === 0) {
+                partialContainer.innerHTML = '<span class="text-gray-500">Aucun mot-clé partiellement correspondant</span>';
+            }
+            
+            // Afficher les mots-clés manquants
+            missingContainer.innerHTML = '';
+            keywordAnalysis.missingKeywords.forEach(keyword => {
+                const span = document.createElement('span');
+                span.className = 'keyword-item keyword-missing';
+                span.textContent = keyword;
+                missingContainer.appendChild(span);
+            });
+            
+            if (keywordAnalysis.missingKeywords.length === 0) {
+                missingContainer.innerHTML = '<span class="text-gray-500">Aucun mot-clé manquant</span>';
+            }
+        }
+
+        function displayRecommendations(recommendations) {
+            const container = document.getElementById('recommendations-list');
+            container.innerHTML = '';
+            
+            recommendations.forEach(rec => {
+                const div = document.createElement('div');
+                div.className = `recommendation-item ${rec.type === 'critical' ? 'critical' : rec.type === 'warning' ? 'warning' : ''}`;
+                div.textContent = rec.text;
+                container.appendChild(div);
+            });
+        }
+
+        // Fonctions utilitaires existantes conservées
+        function extractEducationLevelFromJob(jobText) {
+            const educationPatterns = [
+                { pattern: /doctorat|phd|d\.?phil|thèse/i, level: "DOCTORAT" },
+                { pattern: /master|mastère|mba|bac\s*\+?\s*5/i, level: "MASTER" },
+                { pattern: /licence|bachelor|bac\s*\+?\s*[34]/i, level: "LICENCE" },
+                { pattern: /bts|dut|deug|bac\s*\+?\s*2/i, level: "BTS" },
+                { pattern: /baccalaureat|bac|bachelier|bac\s*\+?\s*0/i, level: "BAC" },
+                { pattern: /brevet|bep|cap|befp/i, level: "BEPC" }
+            ];
+            
+            for (const edu of educationPatterns) {
+                if (edu.pattern.test(jobText)) {
+                    return edu.level;
+                }
+            }
+            
+            return "Niveau non spécifié";
+        }
+
+        function extractExperienceFromJob(jobText) {
+            const experiencePatterns = [
+                /(\d+)\s*(ans|années|année|an)(?:\s*.*?)(?:d'|d\s)?expérience/gi,
+                /expérience.*?(\d+)\s*(ans|années|année|an)/gi,
+                /(\d+)\s*-\s*(\d+)\s*(ans|années|année|an).*?expérience/gi,
+                /(\d+)\s*\/\s*(\d+)\s*(ans|années|année|an).*?expérience/gi
+            ];
+            
+            let maxExperience = 0;
+            
+            experiencePatterns.forEach(pattern => {
+                const matches = jobText.match(pattern);
+                if (matches) {
+                    matches.forEach(match => {
+                        const numbers = match.match(/\d+/g);
+                        if (numbers) {
+                            const maxInMatch = Math.max(...numbers.map(n => parseInt(n)));
+                            if (maxInMatch > maxExperience) {
+                                maxExperience = maxInMatch;
+                            }
+                        }
+                    });
+                }
+            });
+            
+            return maxExperience;
+        }
+
+        function extractImportantKeywords(text) {
+            // Liste de stopwords français à ignorer
+            const stopwords = ['le', 'la', 'les', 'de', 'des', 'du', 'et', 'est', 'en', 'un', 'une', 'au', 'aux', 
+                              'dans', 'par', 'pour', 'sur', 'avec', 'son', 'ses', 'qui', 'que', 'quoi', 'quand', 
+                              'ou', 'comment', 'pourquoi', 'ce', 'cet', 'cette', 'ces', 'a', 'ans', 'annees', 
+                              'annee', 'ans', 'an', 'dans', 'par', 'pour', 'sur', 'avec', 'son', 'ses', 'qui', 
+                              'que', 'quoi', 'quand', 'ou', 'comment', 'pourquoi', 'ce', 'cet', 'cette', 'ces', 
+                              'a', 'ans', 'annees', 'annee', 'ans', 'an', 'être', 'avoir', 'faire', 'dire', 'voir'];
+            
+            // Nettoyer le texte
+            let cleanText = text.toLowerCase()
+                .replace(/[^\w\s]/g, ' ')
+                .replace(/\s+/g, ' ')
+                .trim();
+            
+            // Extraire les mots individuels
+            const words = cleanText.split(' ');
+            
+            // Filtrer les mots significatifs
+            const significantWords = words.filter(word => 
+                word.length > 3 && 
+                !stopwords.includes(word) &&
+                !/\d/.test(word) // Exclure les mots contenant des chiffres
+            );
+            
+            // Compter les fréquences
+            const wordFreq = {};
+            significantWords.forEach(word => {
+                wordFreq[word] = (wordFreq[word] || 0) + 1;
+            });
+            
+            // Trier par fréquence et retourner les 15 mots les plus fréquents
+            return Object.keys(wordFreq)
+                .sort((a, b) => wordFreq[b] - wordFreq[a])
+                .slice(0, 15);
+        }
+
+        function preprocessText(text) {
+            text = text.toLowerCase();
+            text = text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            text = text.replace(/[^\w\s]/g, ' ');
+            text = text.replace(/\s+/g, ' ').trim();
+            return text;
+        }
+
+        function saveAnalysisResult() {
+            if (!currentAnalysisResult || !currentJobIdForAnalysis) {
+                alert("Veuillez d'abord analyser votre CV pour une offre d'emploi spécifique.");
+                return;
+            }
+            
+            // Enregistrer le score dans le localStorage
+            const savedScores = JSON.parse(localStorage.getItem('cvScores') || '{}');
+            savedScores[currentJobIdForAnalysis] = currentAnalysisResult.score;
+            localStorage.setItem('cvScores', JSON.stringify(savedScores));
+            
+            // Enregistrer les résultats complets
+            const savedResults = JSON.parse(localStorage.getItem('cvAnalysisResults') || '{}');
+            const jobKey = `job_${currentJobIdForAnalysis}_${Date.now()}`;
+            savedResults[jobKey] = {
+                jobId: currentJobIdForAnalysis,
+                score: currentAnalysisResult.score,
+                date: new Date().toISOString(),
+                educationExperienceScore: currentAnalysisResult.education.score,
+                keywordScore: currentAnalysisResult.keywords.score,
+                textSimilarityScore: currentAnalysisResult.skills.score
+            };
+            localStorage.setItem('cvAnalysisResults', JSON.stringify(savedResults));
+            
+            // Mettre à jour l'affichage des offres pour montrer le score
+            renderJobs(filteredJobs);
+            
+            alert(`Résultat enregistré avec succès! Votre score de correspondance est de ${currentAnalysisResult.score}%.`);
+        }
+    </script>
+</body>
+</html>
