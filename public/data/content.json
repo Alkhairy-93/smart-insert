@@ -21,21 +21,24 @@
       "expirationDate": "2025-11-28T13:59:00.000Z"
     },
     {
-      "skills": [],
+      "skills": [
+        "Compétences techniques :  Maîtrise avancée des systèmes photovoltaïques.  Excellente connaissance des normes de sécurité électrique.  Capacité à diagnostiquer",
+        "anticiper et résoudre des pannes complexes.  Lecture et interprétation de plans et"
+      ],
       "adminApproved": false,
       "sector": "Energie renouvelable ",
-      "education": "BTS ",
+      "education": "Diplôme en Électricité, Énergies Renouvelables, Électrotechnique ou domaine similaire.",
       "experience": "Au moins 5 ans d’expérience en installation, maintenance ou gestion de projets solaires photovoltaïques",
       "author": "Admin",
       "published": true,
       "date": "2025-11-19T14:09:16.393Z",
-      "requirements": "Compétences techniques :\n\nMaîtrise avancée des systèmes photovoltaïques.\n\nExcellente connaissance des normes de sécurité électrique.\n\nCapacité à diagnostiquer, anticiper et résoudre des pannes complexes.\n\nLecture et interprétation de plans et schémas techniques.\n\n",
+      "requirements": "Compétences managériales :\n\nLeadership éprouvé et capacité à encadrer une équipe de 16 techniciens.\n\nForte organisation, planification et gestion des priorités.\n\nSuivi et évaluation des performances individuelles et collectives.\n\nCapacité à gérer les conflits et prendre des décisions rapides sur le terrain.\n\nCompétences comportementales :\n\nRigueur, sens élevé des responsabilités et autonomie.\n\nBonne communication et esprit d’équipe.\n\nRésistance au stress et capacité à travailler dans des conditions variées.\n",
       "location": "Niamey ",
       "title": "Techniciens en energie renouvelable ",
       "tags": [],
       "type": "CDD",
       "id": "02",
-      "description": "16 Techniciens en  Énergie Solaire\n\nFormation :\n\nDiplôme en Électricité, Énergies Renouvelables, Électrotechnique ou domaine similaire.\n\nExpérience :\n\nAu moins 5 ans d’expérience en installation, maintenance ou gestion de projets solaires photovoltaïques.\n\nExpérience confirmée en supervision d’équipe technique.\n\nCompétences techniques :\n\nMaîtrise avancée des systèmes photovoltaïques.\n\nExcellente connaissance des normes de sécurité électrique.\n\nCapacité à diagnostiquer, anticiper et résoudre des pannes complexes.\n\nLecture et interprétation de plans et schémas techniques.\n\nCompétences managériales :\n\nLeadership éprouvé et capacité à encadrer une équipe de 16 techniciens.\n\nForte organisation, planification et gestion des priorités.\n\nSuivi et évaluation des performances individuelles et collectives.\n\nCapacité à gérer les conflits et prendre des décisions rapides sur le terrain.\n\nCompétences comportementales :\n\nRigueur, sens élevé des responsabilités et autonomie.\n\nBonne communication et esprit d’équipe.\n\nRésistance au stress et capacité à travailler dans des conditions variées.\n\nGrande disponibilité et mobilité.",
+      "description": "16 Techniciens en  Énergie Solaire",
       "company": "Anonyme",
       "expirationDate": "2025-12-17T14:09:00.000Z"
     }
