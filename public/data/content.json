@@ -41,6 +41,23 @@
       "description": "16 Techniciens en  Énergie Solaire",
       "company": "Anonyme",
       "expirationDate": "2025-12-17T14:09:00.000Z"
+    },
+    {
+      "skills": [],
+      "adminApproved": false,
+      "sector": "Agroalimentaire ",
+      "education": "Bts en gestion commerciale, marketing, communication",
+      "experience": "6 mois minimum dans le domaine commercial ",
+      "author": "Admin",
+      "published": true,
+      "date": "2025-11-20T15:27:53.471Z",
+      "location": "Niamey ",
+      "title": "Agents commerciaux ",
+      "tags": [],
+      "type": "CDD",
+      "id": "3",
+      "company": "La laitiere du sahel ",
+      "expirationDate": "2025-11-28T15:27:53.651Z"
     }
   ]
 }
