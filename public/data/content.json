@@ -38,6 +38,24 @@
       "expirationDate": "2025-11-28T15:27:53.651Z"
     },
     {
+      "skills": [],
+      "adminApproved": false,
+      "sector": "Mode",
+      "education": "BTS en Communication, Marketing ou Gestion Commerciale.  ",
+      "experience": "",
+      "author": "Admin",
+      "published": true,
+      "date": "2025-11-21T10:16:13.465Z",
+      "location": "Niamey ",
+      "title": "Commercial(e)",
+      "tags": [],
+      "type": "CDD",
+      "id": "4",
+      "description": "BTS en Communication, Marketing ou Gestion Commerciale.\n \n\n \nExpérience :\n \n \n- Avoir au minimum 6 mois d’expérience dans le domaine de la communication, de la prospection ou de la vente.\n- disposer d un moyen de deplacement (souhaitable)\n \n\n \nCompétences requises :\n \n \n- Bonne maîtrise de la communication orale et écrite.\n \n- Capacité à prospecter, convaincre et fidéliser les clients.\n \n- Sens de la négociation et orientation résultats.\n \n- Connaissance des outils digitaux et des réseaux sociaux (Facebook, WhatsApp, Instagram).\n \n- Capacité à travailler sous pression et atteindre les objectifs de vente.",
+      "company": "Ibn Design ",
+      "expirationDate": "2025-11-25T10:16:13.703Z"
+    },
+    {
       "skills": [
         "Compétences techniques :  Maîtrise avancée des systèmes photovoltaïques.  Excellente connaissance des normes de sécurité électrique.  Capacité à diagnostiquer",
         "anticiper et résoudre des pannes complexes.  Lecture et interprétation de plans et"
@@ -63,19 +81,19 @@
       "skills": [],
       "adminApproved": false,
       "sector": "Mode",
-      "education": "BTS en Communication, Marketing ou Gestion Commerciale.  ",
-      "experience": "",
+      "education": "Bts en communication des entreprises, gestion commerciale ou dans un domaine similaire ",
+      "experience": "1 ans minimum ",
       "author": "Admin",
       "published": true,
-      "date": "2025-11-21T10:16:13.465Z",
+      "date": "2025-11-24T19:09:51.014Z",
+      "requirements": "\nMarketing opérationnel et communication\n\nGestion des réseaux sociaux\n\nProspection et relation client\n\nAnalyse des performances marketing\n\nMaîtrise de Canva et autres outils digitaux\n\nRédaction de contenus marketing\n\nBonne organisation et sens du détail\n",
       "location": "Niamey ",
-      "title": "Commercial(e)",
+      "title": "Assitante marketing ",
       "tags": [],
       "type": "CDD",
-      "id": "4",
-      "description": "BTS en Communication, Marketing ou Gestion Commerciale.\n \n\n \nExpérience :\n \n \n- Avoir au minimum 6 mois d’expérience dans le domaine de la communication, de la prospection ou de la vente.\n- disposer d un moyen de deplacement (souhaitable)\n \n\n \nCompétences requises :\n \n \n- Bonne maîtrise de la communication orale et écrite.\n \n- Capacité à prospecter, convaincre et fidéliser les clients.\n \n- Sens de la négociation et orientation résultats.\n \n- Connaissance des outils digitaux et des réseaux sociaux (Facebook, WhatsApp, Instagram).\n \n- Capacité à travailler sous pression et atteindre les objectifs de vente.",
+      "id": "5",
       "company": "Ibn Design ",
-      "expirationDate": "2025-11-25T10:16:13.703Z"
+      "expirationDate": "2025-11-28T19:09:51.292Z"
     }
   ]
 }
