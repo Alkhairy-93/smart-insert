@@ -25,23 +25,6 @@
     {
       "skills": [],
       "adminApproved": false,
-      "sector": "Agroalimentaire ",
-      "education": "Bts en gestion commerciale, marketing, communication",
-      "experience": "6 mois minimum dans le domaine commercial ",
-      "author": "Admin",
-      "published": true,
-      "date": "2025-11-20T15:27:53.471Z",
-      "location": "Niamey ",
-      "title": "Agents commerciaux ",
-      "tags": [],
-      "type": "CDD",
-      "id": "3",
-      "company": "La laitiere du sahel ",
-      "expirationDate": "2025-12-05T15:27:53.651Z"
-    },
-    {
-      "skills": [],
-      "adminApproved": false,
       "sector": "Energie solaire",
       "experience": "Avoir au moins 6 mois d’expérience en prospection commerciale.",
       "author": "Admin",
@@ -76,6 +59,41 @@
       "description": "Présenter, promouvoir et vendre les produits de La Laitière du Sahel.\n \n- Atteindre les objectifs journaliers et hebdomadaires fixés.\n \n- Assurer le suivi des clients et la fidélisation.\n \n- Remonter les informations du terrain (ventes, retours, besoins clients).\n ",
       "company": "Laitiere du sahel ",
       "expirationDate": "2025-12-05T13:59:00.000Z"
+    },
+    {
+      "skills": [],
+      "adminApproved": false,
+      "sector": " logistique et livraison express",
+      "experience": "Minimum 2ans dans un poste similateur ",
+      "author": "Admin",
+      "published": true,
+      "date": "2025-12-02T23:34:24.659Z",
+      "requirements": "Front-end : HTML, CSS, JavaScript, React.js/Vue.js/Angular\n\nBack-end : Node.js, Python (Django/Flask) ou PHP (Laravel), API REST\n\nBase de données : MySQL, PostgreSQL, MongoDB\n\nMobile : React Native ou Flutter (souhaité)\n\nOutils : Git, CI/CD, tests et débogage",
+      "location": "Niamey ",
+      "title": "(2) full Stack Developper",
+      "tags": [],
+      "type": "CDD",
+      "id": "5",
+      "description": "Concevoir et maintenir les applications web et mobiles\n\nIntégrer les fonctionnalités côté client et serveur\n\nAssurer support technique et suivi du service client.\n\nCorriger les bugs et assurer le support technique.",
+      "company": "Zango Express ",
+      "expirationDate": "2025-12-04T23:34:24.880Z"
+    },
+    {
+      "skills": [],
+      "adminApproved": false,
+      "sector": "Agroalimentaire ",
+      "education": "Bts en gestion commerciale, marketing, communication",
+      "experience": "6 mois minimum dans le domaine commercial ",
+      "author": "Admin",
+      "published": true,
+      "date": "2025-11-20T15:27:53.471Z",
+      "location": "Niamey ",
+      "title": "Agents commerciaux ",
+      "tags": [],
+      "type": "CDD",
+      "id": "3",
+      "company": "La laitiere du sahel ",
+      "expirationDate": "2025-12-05T15:27:53.651Z"
     }
   ]
 }
