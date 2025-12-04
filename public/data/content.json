@@ -23,23 +23,6 @@
     {
       "skills": [],
       "adminApproved": false,
-      "sector": "Logistique et livraison Express ",
-      "experience": "2 ans dans le domaine commercial ",
-      "author": "Admin",
-      "published": true,
-      "date": "2025-12-02T23:54:15.932Z",
-      "location": "NIAMEY",
-      "title": "(2) Sales Team Leader",
-      "tags": [],
-      "type": "CDD",
-      "id": "7",
-      "description": "Superviser et encadrer l’équipe de commerciaux sur le terrain.\n\nParticiper activement à la prospection B2B : identifier et approcher de nouveaux clients professionnels (restaurants, commerces, distributeurs, entreprises).\n\nDévelopper et fidéliser le portefeuille clients .\n\nFixer des objectifs à l’équipe et assurer le suivi des performances.\n\nRemonter régulièrement les rapports et informations terrain.\n\nProposer et mettre en œuvre des stratégies commerciales efficaces pour atteindre les objectifs.\n",
-      "company": "Zango Express ",
-      "expirationDate": "2025-12-04T23:54:16.171Z"
-    },
-    {
-      "skills": [],
-      "adminApproved": false,
       "sector": "Energie solaire",
       "experience": "Avoir au moins 6 mois d’expérience en prospection commerciale.",
       "author": "Admin",
@@ -72,6 +55,23 @@
       "description": "Concevoir et maintenir les applications web et mobiles\n\nIntégrer les fonctionnalités côté client et serveur\n\nAssurer support technique et suivi du service client.\n\nCorriger les bugs et assurer le support technique.",
       "company": "Zango Express ",
       "expirationDate": "2025-12-04T23:34:24.880Z"
+    },
+    {
+      "skills": [],
+      "adminApproved": false,
+      "sector": "Logistique et livraison Express ",
+      "experience": "2 ans dans le domaine commercial ",
+      "author": "Admin",
+      "published": true,
+      "date": "2025-12-02T23:54:15.932Z",
+      "location": "NIAMEY",
+      "title": "(2) Sales Team Leader",
+      "tags": [],
+      "type": "CDD",
+      "id": "7",
+      "description": "Superviser et encadrer l’équipe de commerciaux sur le terrain.\n\nParticiper activement à la prospection B2B : identifier et approcher de nouveaux clients professionnels (restaurants, commerces, distributeurs, entreprises).\n\nDévelopper et fidéliser le portefeuille clients .\n\nFixer des objectifs à l’équipe et assurer le suivi des performances.\n\nRemonter régulièrement les rapports et informations terrain.\n\nProposer et mettre en œuvre des stratégies commerciales efficaces pour atteindre les objectifs.\n",
+      "company": "Zango Express ",
+      "expirationDate": "2025-12-04T23:54:16.171Z"
     },
     {
       "skills": [
@@ -122,7 +122,7 @@
       "date": "2025-12-03T00:12:28.842Z",
       "requirements": "Maîtrise des outils de création graphique et de montage vidéo (Canva, Photoshop, Premiere Pro, CapCut…).\n\nCréatif, autonome et passionné par les tendances mode et digitales.\n\nConnaissance des réseaux sociaux et des comportements des communautés mode.",
       "location": "Niamey",
-      "title": "Community manager ",
+      "title": "Une Community manager ",
       "tags": [],
       "type": "CDD",
       "id": "",
