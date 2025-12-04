@@ -1,6 +1,26 @@
 {
   "content": [
     {
+      "skills": [],
+      "adminApproved": false,
+      "sector": "Agroalimentaire ",
+      "education": "Niveau BEPC ",
+      "experience": "6 mois minimum dans la vente",
+      "author": "Admin",
+      "published": true,
+      "date": "2025-11-19T13:59:08.356Z",
+      "requirements": "Etre presentable. \nSavoir vendre.\n",
+      "contactWhatsApp": "+227 90 14 35 07",
+      "location": "Niamey ",
+      "title": "Agents vendeurs",
+      "tags": [],
+      "type": "CDD",
+      "id": "01",
+      "description": "Présenter, promouvoir et vendre les produits de La Laitière du Sahel.\n \n- Atteindre les objectifs journaliers et hebdomadaires fixés.\n \n- Assurer le suivi des clients et la fidélisation.\n \n- Remonter les informations du terrain (ventes, retours, besoins clients).\n ",
+      "company": "Laitiere du sahel ",
+      "expirationDate": "2025-12-10T13:59:00.000Z"
+    },
+    {
       "skills": [
         "Compétences techniques :  Maîtrise avancée des systèmes photovoltaïques.  Excellente connaissance des normes de sécurité électrique.  Capacité à diagnostiquer",
         "anticiper et résoudre des pannes complexes.  Lecture et interprétation de plans et"
@@ -21,26 +41,6 @@
       "description": "16 Techniciens en  Énergie Solaire",
       "company": "Anonyme",
       "expirationDate": "2025-12-17T14:09:00.000Z"
-    },
-    {
-      "skills": [],
-      "adminApproved": false,
-      "sector": "Agroalimentaire ",
-      "education": "Niveau BEPC ",
-      "experience": "6 mois minimum dans la vente",
-      "author": "Admin",
-      "published": true,
-      "date": "2025-11-19T13:59:08.356Z",
-      "requirements": "Etre presentable. \nSavoir vendre.\n",
-      "contactWhatsApp": "+227 90 14 35 07",
-      "location": "Niamey ",
-      "title": "Agents vendeurs",
-      "tags": [],
-      "type": "CDD",
-      "id": "01",
-      "description": "Présenter, promouvoir et vendre les produits de La Laitière du Sahel.\n \n- Atteindre les objectifs journaliers et hebdomadaires fixés.\n \n- Assurer le suivi des clients et la fidélisation.\n \n- Remonter les informations du terrain (ventes, retours, besoins clients).\n ",
-      "company": "Laitiere du sahel ",
-      "expirationDate": "2025-12-10T13:59:00.000Z"
     },
     {
       "skills": [],
@@ -111,6 +111,24 @@
       "id": "3",
       "company": "La laitiere du sahel ",
       "expirationDate": "2025-12-10T15:27:53.651Z"
+    },
+    {
+      "skills": [],
+      "adminApproved": false,
+      "sector": "",
+      "experience": "1 an minimum dans un poste similaire ",
+      "author": "Admin",
+      "published": true,
+      "date": "2025-12-04T07:26:51.716Z",
+      "requirements": " Maitrise des réseaux sociaux\n\t•\tCréatif(ve), dynamique et ponctuel(le)\n\t•\tÀ l’aise avec la photo/vidéo\n\t•\tBonne expression écrite et orale\n\t•\tDisponible pour venir au centre régulièrement\n\t•\tConnaissance de Canva\n",
+      "location": "Niamey",
+      "title": "Une Community manager ",
+      "tags": [],
+      "type": "CDD",
+      "id": "8",
+      "description": "Recherche un(e) Community Manager motivé(e) et créatif(ve) pour gérer nos réseaux sociaux.\n\nMissions principales\n\t•\tCréation de 3 à 5 publications par semaine (Facebook + Instagram+ TikTok)\n\t•\tRéalisation de photos et petites vidéos dans le centre\n\t•\tCréation de visuels simples (Canva)\n\t•\tPublication de stories quotidiennes\n\t•\tRéponse aux messages WhatsApp, Snapchat, Facebook, Instagram\n\t•\tAide à la promotion des formations et événements\n\t•\tParticipation au planning de contenu\n\t•\tBoost de publications (si nécessaire)",
+      "company": "Centre de formation culinaire",
+      "expirationDate": "2025-12-08T07:26:52.142Z"
     },
     {
       "skills": [],
