@@ -63,23 +63,6 @@
     {
       "skills": [],
       "adminApproved": false,
-      "sector": "Agroalimentaire ",
-      "education": "Bts en gestion commerciale, marketing, communication",
-      "experience": "6 mois minimum dans le domaine commercial ",
-      "author": "Admin",
-      "published": true,
-      "date": "2025-11-20T15:27:53.471Z",
-      "location": "Niamey ",
-      "title": "Agents commerciaux ",
-      "tags": [],
-      "type": "CDD",
-      "id": "3",
-      "company": "La laitiere du sahel ",
-      "expirationDate": "2025-12-10T15:27:53.651Z"
-    },
-    {
-      "skills": [],
-      "adminApproved": false,
       "sector": "Logistique et livraison Express ",
       "experience": "2 ans dans le domaine commercial ",
       "author": "Admin",
@@ -92,7 +75,7 @@
       "id": "7",
       "description": "Superviser et encadrer l’équipe de commerciaux sur le terrain.\n\nParticiper activement à la prospection B2B : identifier et approcher de nouveaux clients professionnels (restaurants, commerces, distributeurs, entreprises).\n\nDévelopper et fidéliser le portefeuille clients .\n\nFixer des objectifs à l’équipe et assurer le suivi des performances.\n\nRemonter régulièrement les rapports et informations terrain.\n\nProposer et mettre en œuvre des stratégies commerciales efficaces pour atteindre les objectifs.\n",
       "company": "Zango Express ",
-      "expirationDate": "2025-12-04T23:54:16.171Z"
+      "expirationDate": "2025-12-08T23:54:16.171Z"
     },
     {
       "skills": [],
@@ -110,7 +93,24 @@
       "id": "5",
       "description": "Concevoir et maintenir les applications web et mobiles\n\nIntégrer les fonctionnalités côté client et serveur\n\nAssurer support technique et suivi du service client.\n\nCorriger les bugs et assurer le support technique.",
       "company": "Zango Express ",
-      "expirationDate": "2025-12-04T23:34:24.880Z"
+      "expirationDate": "2025-12-08T23:34:24.880Z"
+    },
+    {
+      "skills": [],
+      "adminApproved": false,
+      "sector": "Agroalimentaire ",
+      "education": "Bts en gestion commerciale, marketing, communication",
+      "experience": "6 mois minimum dans le domaine commercial ",
+      "author": "Admin",
+      "published": true,
+      "date": "2025-11-20T15:27:53.471Z",
+      "location": "Niamey ",
+      "title": "Agents commerciaux ",
+      "tags": [],
+      "type": "CDD",
+      "id": "3",
+      "company": "La laitiere du sahel ",
+      "expirationDate": "2025-12-10T15:27:53.651Z"
     },
     {
       "skills": [],
@@ -133,20 +133,18 @@
     {
       "skills": [],
       "adminApproved": false,
-      "sector": "Cuisine",
-      "experience": "1 an minimum dans un poste similaire ",
+      "sector": "Parfumerie et secrets des femmes",
       "author": "Admin",
       "published": true,
-      "date": "2025-12-04T07:26:51.716Z",
-      "requirements": " Maitrise des réseaux sociaux\n\t•\tCréatif(ve), dynamique et ponctuel(le)\n\t•\tÀ l’aise avec la photo/vidéo\n\t•\tBonne expression écrite et orale\n\t•\tDisponible pour venir au centre régulièrement\n\t•\tConnaissance de Canva\n",
-      "location": "Niamey",
-      "title": "Une Community manager ",
+      "date": "2025-12-05T09:14:41.471Z",
+      "requirements": "Être disciplinée et respecter les horaires.\n\nÊtre motivée, dynamique et prête à apprendre.\n\nÊtre disponible les weekends.\n\nIdéalement habiter à Banifandou ou environs pour une meilleure ponctualité.\n\nAvoir le sens de l’accueil et du conseil.\n\nAvoir une bonne présentation et savoir rester discrète.\n",
+      "location": "Niamey Banifandou 2",
+      "title": "Assitante ",
       "tags": [],
-      "type": "CDD",
-      "id": "8",
-      "description": "Recherche un(e) Community Manager motivé(e) et créatif(ve) pour gérer nos réseaux sociaux.\n\nMissions principales\n\t•\tCréation de 3 à 5 publications par semaine (Facebook + Instagram+ TikTok)\n\t•\tRéalisation de photos et petites vidéos dans le centre\n\t•\tCréation de visuels simples (Canva)\n\t•\tPublication de stories quotidiennes\n\t•\tRéponse aux messages WhatsApp, Snapchat, Facebook, Instagram\n\t•\tAide à la promotion des formations et événements\n\t•\tParticipation au planning de contenu\n\t•\tBoost de publications (si nécessaire)",
-      "company": "Centre de formation culinaire",
-      "expirationDate": "2025-12-08T07:26:52.142Z"
+      "type": "CDD ",
+      "description": "Assurer l’accueil, le conseil, la vente et la gestion quotidienne de la boutique spécialisée en parfumerie, cosmétiques féminins ,KM ,tout en garantissant une excellente expérience client.",
+      "company": "Mouslim senteur et secret de femme",
+      "expirationDate": "2025-12-12T09:14:41.856Z"
     },
     {
       "skills": [],
@@ -168,18 +166,20 @@
     {
       "skills": [],
       "adminApproved": false,
-      "sector": "Parfumerie et secrets des femmes",
+      "sector": "Cuisine",
+      "experience": "1 an minimum dans un poste similaire ",
       "author": "Admin",
       "published": true,
-      "date": "2025-12-05T09:14:41.471Z",
-      "requirements": "Être disciplinée et respecter les horaires.\n\nÊtre motivée, dynamique et prête à apprendre.\n\nÊtre disponible les weekends.\n\nIdéalement habiter à Banifandou ou environs pour une meilleure ponctualité.\n\nAvoir le sens de l’accueil et du conseil.\n\nAvoir une bonne présentation et savoir rester discrète.\n",
-      "location": "Niamey Banifandou 2",
-      "title": "Assitante ",
+      "date": "2025-12-04T07:26:51.716Z",
+      "requirements": " Maitrise des réseaux sociaux\n\t•\tCréatif(ve), dynamique et ponctuel(le)\n\t•\tÀ l’aise avec la photo/vidéo\n\t•\tBonne expression écrite et orale\n\t•\tDisponible pour venir au centre régulièrement\n\t•\tConnaissance de Canva\n",
+      "location": "Niamey",
+      "title": "Une Community manager ",
       "tags": [],
-      "type": "CDD ",
-      "description": "Assurer l’accueil, le conseil, la vente et la gestion quotidienne de la boutique spécialisée en parfumerie, cosmétiques féminins ,KM ,tout en garantissant une excellente expérience client.",
-      "company": "Mouslim senteur et secret de femme",
-      "expirationDate": "2025-12-12T09:14:41.856Z"
+      "type": "CDD",
+      "id": "8",
+      "description": "Recherche un(e) Community Manager motivé(e) et créatif(ve) pour gérer nos réseaux sociaux.\n\nMissions principales\n\t•\tCréation de 3 à 5 publications par semaine (Facebook + Instagram+ TikTok)\n\t•\tRéalisation de photos et petites vidéos dans le centre\n\t•\tCréation de visuels simples (Canva)\n\t•\tPublication de stories quotidiennes\n\t•\tRéponse aux messages WhatsApp, Snapchat, Facebook, Instagram\n\t•\tAide à la promotion des formations et événements\n\t•\tParticipation au planning de contenu\n\t•\tBoost de publications (si nécessaire)",
+      "company": "Centre de formation culinaire",
+      "expirationDate": "2025-12-08T07:26:52.142Z"
     }
   ]
 }
