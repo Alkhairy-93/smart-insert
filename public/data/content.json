@@ -19,26 +19,6 @@
       "expirationDate": "2025-12-05T08:51:29.791Z"
     },
     {
-      "skills": [],
-      "adminApproved": false,
-      "sector": "Agroalimentaire ",
-      "education": "Niveau BEPC ",
-      "experience": "6 mois minimum dans la vente",
-      "author": "Admin",
-      "published": true,
-      "date": "2025-11-19T13:59:08.356Z",
-      "requirements": "Etre presentable. \nSavoir vendre.\n",
-      "contactWhatsApp": "+227 90 14 35 07",
-      "location": "Niamey ",
-      "title": "Agents vendeurs",
-      "tags": [],
-      "type": "CDD",
-      "id": "01",
-      "description": "Présenter, promouvoir et vendre les produits de La Laitière du Sahel.\n \n- Atteindre les objectifs journaliers et hebdomadaires fixés.\n \n- Assurer le suivi des clients et la fidélisation.\n \n- Remonter les informations du terrain (ventes, retours, besoins clients).\n ",
-      "company": "Laitiere du sahel ",
-      "expirationDate": "2025-12-10T13:59:00.000Z"
-    },
-    {
       "skills": [
         "Compétences techniques :  Maîtrise avancée des systèmes photovoltaïques.  Excellente connaissance des normes de sécurité électrique.  Capacité à diagnostiquer",
         "anticiper et résoudre des pannes complexes.  Lecture et interprétation de plans et"
@@ -59,6 +39,26 @@
       "description": "16 Techniciens en  Énergie Solaire",
       "company": "Anonyme",
       "expirationDate": "2025-12-17T14:09:00.000Z"
+    },
+    {
+      "skills": [],
+      "adminApproved": false,
+      "sector": "Agroalimentaire ",
+      "education": "Niveau BEPC ",
+      "experience": "6 mois minimum dans la vente",
+      "author": "Admin",
+      "published": true,
+      "date": "2025-11-19T13:59:08.356Z",
+      "requirements": "Etre presentable. \nSavoir vendre.\n",
+      "contactWhatsApp": "+227 90 14 35 07",
+      "location": "Niamey ",
+      "title": "Agents vendeurs",
+      "tags": [],
+      "type": "CDD",
+      "id": "01",
+      "description": "Présenter, promouvoir et vendre les produits de La Laitière du Sahel.\n \n- Atteindre les objectifs journaliers et hebdomadaires fixés.\n \n- Assurer le suivi des clients et la fidélisation.\n \n- Remonter les informations du terrain (ventes, retours, besoins clients).\n ",
+      "company": "Laitiere du sahel ",
+      "expirationDate": "2025-12-10T13:59:00.000Z"
     },
     {
       "skills": [],
