@@ -41,23 +41,6 @@
     {
       "skills": [],
       "adminApproved": false,
-      "sector": "Agroalimentaire ",
-      "education": "Bts en gestion commerciale, marketing, communication",
-      "experience": "6 mois minimum dans le domaine commercial ",
-      "author": "Admin",
-      "published": true,
-      "date": "2025-11-20T15:27:53.471Z",
-      "location": "Niamey ",
-      "title": "Agents commerciaux ",
-      "tags": [],
-      "type": "CDD",
-      "id": "3",
-      "company": "La laitiere du sahel ",
-      "expirationDate": "2025-12-10T15:27:53.651Z"
-    },
-    {
-      "skills": [],
-      "adminApproved": false,
       "sector": "Formation professionelle,  innovation digitale ",
       "education": "Diplôme en finance, comptabilité, audit ou domaine similaire",
       "author": "Admin",
@@ -112,6 +95,23 @@
     {
       "skills": [],
       "adminApproved": false,
+      "sector": "Agroalimentaire ",
+      "education": "Bts en gestion commerciale, marketing, communication",
+      "experience": "6 mois minimum dans le domaine commercial ",
+      "author": "Admin",
+      "published": true,
+      "date": "2025-11-20T15:27:53.471Z",
+      "location": "Niamey ",
+      "title": "Agents commerciaux ",
+      "tags": [],
+      "type": "CDD",
+      "id": "3",
+      "company": "La laitiere du sahel ",
+      "expirationDate": "2025-12-10T15:27:53.651Z"
+    },
+    {
+      "skills": [],
+      "adminApproved": false,
       "sector": "Communication et distribution",
       "education": "Bts en gestion commercial un dans un domaine  similaire ",
       "experience": "6 mois minimum en tand que commerciale dont 3 mois sur le terrain. ",
@@ -126,6 +126,23 @@
       "description": "Assurer le suivi et la performance des commerciaux, centraliser leurs retours, gérer les aspects financiers liés aux ventes et veiller au bon contrôle des stocks.\n",
       "company": "Perle media",
       "expirationDate": "2025-12-12T13:22:09.240Z"
+    },
+    {
+      "skills": [],
+      "adminApproved": false,
+      "sector": "Agro alimentaire ",
+      "salary": "60 000",
+      "author": "Admin",
+      "published": true,
+      "date": "2025-12-11T15:16:24.539Z",
+      "requirements": "Etre motivé \nOrienté resultat \nDisponible \n",
+      "location": "Niamey ",
+      "title": "(100) commerciaux ",
+      "tags": [],
+      "type": "CDD ",
+      "description": "Prospection commerciale terrain \nVente\nGestion de relation client\nFidelisation client",
+      "company": "Anonyme ",
+      "expirationDate": "2025-12-31T15:16:25.154Z"
     }
   ]
 }
