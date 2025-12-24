@@ -4,22 +4,46 @@
       "skills": [],
       "adminApproved": false,
       "sector": "Communication et distribution ",
-      "salary": "60 000",
+      "salary": "130 milles fr cfa",
       "author": "Admin",
       "published": true,
       "date": "2025-12-11T15:16:24.539Z",
-      "requirements": "Etre motivé \nOrienté resultat \nDisponible \n",
+      "requirements": "Etre motivée \nOrientée resultat \nDisponible \n",
       "location": "Niamey ",
-      "title": "(200) commerciaux ",
+      "title": "(200) commerciales",
       "tags": [],
       "type": "CDD ",
       "id": "",
-      "description": "Prospection commerciale terrain \nVente\nGestion de relation client\nFidelisation client",
+      "description": "Prospection commerciale \nVente\nGestion de relation client\nFidelisation client",
       "company": "Perle media internationale",
-      "expirationDate": "2025-12-31T15:16:25.154Z"
+      "expirationDate": "2026-03-31T15:16:25.154Z"
     },
     {
-      "skills": [],
+      "skills": [
+        "Dynamique",
+        "autonome et orienté résultats  À l’aise avec les interactions terrain et le suivi de performance  Capable de travailler en équipe et de respecter les objectifs fixés"
+      ],
+      "adminApproved": false,
+      "sector": "Agence de placement de personnel ",
+      "experience": "1ans",
+      "salary": "Entre 70 milles et 100 milles.fr cfa",
+      "author": "Admin",
+      "published": true,
+      "date": "2025-12-24T16:12:41.901Z",
+      "requirements": "Expérience commerciale terrain pertinente, idéalement dans les secteurs télécoms, fintech, e-commerce et biens de consommation courante",
+      "location": "Niamey, Tillabéri, Tahoua, Agadez, Zinder, Diffa, Maradi, Dosso.",
+      "title": "Commerciaux (Agents d’acquisition / Activation points)",
+      "tags": [],
+      "type": "CDD",
+      "description": "Dans le cadre de nos projets avec nos partenaires, nous mettons à jour notre base de données de profils qualifiés pour les postes suivants :\nCommerciaux (Agents d’acquisition / Activation points)\n",
+      "company": "Smart Insert ",
+      "expirationDate": "2026-01-16T16:12:42.104Z"
+    },
+    {
+      "skills": [
+        "Dynamique",
+        "autonome et orienté résultats  À l’aise avec les interactions terrain et le suivi de performance  Capable de travailler en équipe et de respecter les objectifs fixés"
+      ],
       "adminApproved": false,
       "sector": "Agence de placement personnel ",
       "experience": "3ans minimum",
@@ -35,6 +59,27 @@
       "description": "Dans le cadre de nos projets avec nos partenaires, nous mettons à jour notre base de données de profils qualifiés pour les postes suivants :\nSuperviseurs terrain",
       "company": "Smart Insert ",
       "expirationDate": "2026-01-16T15:50:03.191Z"
+    },
+    {
+      "skills": [
+        "Dynamique",
+        "autonome et orienté résultats  À l’aise avec les interactions terrain et le suivi de performance  Capable de travailler en équipe et de respecter les objectifs fixés"
+      ],
+      "adminApproved": false,
+      "sector": "Agence de placement de personnel ",
+      "experience": "2ans minimum ",
+      "salary": "Entre 80 milles et 200 milles franc cfa.",
+      "author": "Admin",
+      "published": true,
+      "date": "2025-12-24T16:06:20.806Z",
+      "requirements": "Expérience commerciale terrain pertinente, idéalement dans les secteurs télécoms, fintech, e-commerce et biens de consommation courante\nExpérience pertinence en gestion d’équipes terrain ",
+      "location": "Niamey, Tillabéri, Tahoua, Agadez, Zinder, Diffa, Maradi, Dosso.",
+      "title": "Chefs d’équipe commerciale",
+      "tags": [],
+      "type": "CDD",
+      "description": "Dans le cadre de nos projets avec nos partenaires, nous mettons à jour notre base de données de profils qualifiés pour les postes suivants :\nChefs d’équipe commerciales",
+      "company": "Smart Insert ",
+      "expirationDate": "2026-01-16T16:06:20.969Z"
     }
   ]
 }
